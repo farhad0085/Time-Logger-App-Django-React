@@ -1,0 +1,10 @@
+.logTableContainer {
+    &_logTable {
+        border: 1px solid gray;
+        
+        td, th{
+            border: 1px solid gray;
+        }
+    }
+
+}

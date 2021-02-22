@@ -1,0 +1,26 @@
+// auth action types
+// user
+export const USER_LOGGED_IN = "USER_LOGGED_IN";
+export const USER_LOGIN_ERROR = "USER_LOGIN_ERROR";
+
+export const USER_REGISTERED = "USER_REGISTERED";
+export const USER_REGISTER_ERROR = "USER_REGISTER_ERROR";
+
+export const USER_LOGGED_OUT = "USER_LOGGED_OUT";
+
+export const AUTH_LOADING = "AUTH_LOADING";
+
+export const USER_INFO_LOADED = "USER_INFO_LOADED";
+export const USER_INFO_LOAD_ERROR = "USER_INFO_LOAD_ERROR";
+
+
+// time logs
+export const TIME_LOGS_LOADED = "TIME_LOGS_LOADED"
+export const TIME_LOGS_LOAD_ERROR = "TIME_LOGS_LOAD_ERROR"
+export const TIME_LOGS_LOADING = "TIME_LOGS_LOADING"
+export const TIME_LOG_SAVED = "TIME_LOG_SAVED"
+export const TIME_LOG_SAVE_ERROR = "TIME_LOG_SAVE_ERROR"
+
+export const TIME_LOG_LOADED = "TIME_LOG_LOADED" // for single log
+export const TIME_LOG_LOAD_ERROR = "TIME_LOG_LOAD_ERROR"
+export const TIME_LOG_LOADING = "TIME_LOG_LOADING"
