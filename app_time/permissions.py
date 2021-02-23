@@ -9,3 +9,10 @@ class AdminOrOwnLog(permissions.BasePermission):
             return True
 
         return obj.created_by == request.user
+
+
+class IsAdminUser(permissions.BasePermission):
+    message = "You're not allowed to perform this action"
+
+    def has_permission(self, request, view):
+        return request.user.is_superuser

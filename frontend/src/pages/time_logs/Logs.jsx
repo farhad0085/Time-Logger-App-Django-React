@@ -12,12 +12,12 @@ const Logs = ({ logs, loading }) => {
                 <Table className="align-items-center table-flush" responsive>
                     <thead className="thead-light">
                         <tr>
-                            <th scope="col">Date</th>
-                            <th scope="col">Hours</th>
-                            <th scope="col">Injuries Noted</th>
-                            <th scope="col">Violations noted</th>
-                            <th scope="col">Comments</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col" className="text-center">Date</th>
+                            <th scope="col" className="text-center">Hours</th>
+                            <th scope="col" className="text-center">Injuries Noted</th>
+                            <th scope="col" className="text-center">Violations noted</th>
+                            <th scope="col" className="text-center">Comments</th>
+                            <th scope="col" className="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>

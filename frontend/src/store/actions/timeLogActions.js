@@ -48,12 +48,19 @@ export const createTimeLog = (data) => (dispatch) => {
     })
     .catch((error) => {
       console.log(error.response);
-      dispatch({
-        type: Types.TIME_LOG_SAVE_ERROR,
-        payload: error.response
-          ? error.response.data
-          : { message: "Something went wrong" },
-      });
+      if (error.response && error.response.data.hours) {
+        dispatch({
+          type: Types.TIME_LOG_SAVE_ERROR,
+          payload: { message: "Hours must be less than or equal 24" },
+        });
+      } else {
+        dispatch({
+          type: Types.TIME_LOG_SAVE_ERROR,
+          payload: error.response
+            ? error.response.data
+            : { message: "Something went wrong" },
+        });
+      }
       dispatch({ type: Types.TIME_LOGS_LOADING, payload: false });
     });
 };
@@ -81,12 +88,19 @@ export const updateTimeLog = (logId, data) => (dispatch) => {
     })
     .catch((error) => {
       console.log(error.response);
-      dispatch({
-        type: Types.TIME_LOG_SAVE_ERROR,
-        payload: error.response
-          ? error.response.data
-          : { message: "Something went wrong" },
-      });
+      if (error.response && error.response.data.hours) {
+        dispatch({
+          type: Types.TIME_LOG_SAVE_ERROR,
+          payload: { message: "Hours must be less than or equal 24" },
+        });
+      } else {
+        dispatch({
+          type: Types.TIME_LOG_SAVE_ERROR,
+          payload: error.response
+            ? error.response.data
+            : { message: "Something went wrong" },
+        });
+      }
       dispatch({ type: Types.TIME_LOGS_LOADING, payload: false });
     });
 };

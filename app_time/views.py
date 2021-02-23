@@ -1,11 +1,13 @@
+from app_time.utils import format_hours, format_total_hours
 from rest_framework.response import Response
 from app_time.serializers import TimeLogSerializer
 from app_time.models import TimeLog
-from app_time.permissions import AdminOrOwnLog
+from app_time.permissions import AdminOrOwnLog, IsAdminUser
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.validators import ValidationError
+from django.contrib.auth.models import User
 import datetime
 
 class LogTimeListAPIView(APIView):
@@ -20,6 +22,9 @@ class LogTimeListAPIView(APIView):
             date__month=self.today.month
         ).all()
         data = TimeLogSerializer(logs, many=True).data
+        
+        for item in data:
+            item['hours'] = format_hours(item['hours'])
         return Response(data, 200)
 
     def post(self, request):
@@ -116,4 +121,24 @@ class LogTimeRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
         serializer.save()
 
 
-    
+class UserDataWithTimeLog(APIView):
+
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+    def get(self, request):
+        today = datetime.date.today()
+        month_first_day = today.replace(day=1)
+
+        users = User.objects.all()
+        
+        response_data = []
+        for user in users:
+            logs = TimeLog.objects.filter(created_by=user, date__range=[month_first_day, today]).all()
+            response_data.append({
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "hours": format_total_hours(log.hours for log in logs)
+            })
+
+        return Response(response_data, 200)

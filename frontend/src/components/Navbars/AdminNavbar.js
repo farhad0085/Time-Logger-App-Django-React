@@ -68,13 +68,18 @@ const AdminNavbar = (props) => {
               <DropdownMenu className="dropdown-menu-arrow" right>
                 <DropdownItem to="/admin/user-profile" tag={Link}>
                   <i className="ni ni-single-02" />
-                  <span>My profile</span>
+                  <span>Profile</span>
                 </DropdownItem>
                 <DropdownItem to="/admin/user-profile" tag={Link}>
                   <i className="ni ni-settings-gear-65" />
                   <span>Settings</span>
                 </DropdownItem>
-                
+                {auth.user.is_superuser && (
+                    <DropdownItem to="/admin/users" tag={Link}>
+                        <i className="fa fa-users" />
+                        <span>Users</span>
+                    </DropdownItem>
+                )}
                 <DropdownItem divider />
                 <DropdownItem to="/logout" tag={Link}>
                   <i className="ni ni-user-run" />

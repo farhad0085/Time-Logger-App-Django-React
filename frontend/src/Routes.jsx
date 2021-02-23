@@ -6,6 +6,7 @@ import RegisterPage from "./pages/auth/RegisterPage";
 
 import LogForm from "./pages/time_logs/LogForm";
 import EditLog from "./pages/time_logs/EditLog";
+import UsersPage from "./pages/time_logs/admin/UsersPage";
 
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFound";
@@ -18,6 +19,7 @@ const Routes = () => {
             <PrivateRoute path="/" exact component={HomePage} />
             <PrivateRoute path="/create-log" exact component={LogForm} />
             <PrivateRoute path="/log/update/:logId" exact component={EditLog} />
+            <PrivateRoute path="/admin/users" exact component={UsersPage} />
 
             {/* auth routes */}
             <GuestRoute exact path="/login" component={LoginPage} />

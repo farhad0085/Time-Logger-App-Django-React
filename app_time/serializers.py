@@ -1,8 +1,9 @@
 from rest_framework import serializers
 from .models import TimeLog
 
-
 class TimeLogSerializer(serializers.ModelSerializer):
+
+    hours = serializers.FloatField(max_value=24)
 
     class Meta:
         model = TimeLog

@@ -24,3 +24,8 @@ export const TIME_LOG_SAVE_ERROR = "TIME_LOG_SAVE_ERROR"
 export const TIME_LOG_LOADED = "TIME_LOG_LOADED" // for single log
 export const TIME_LOG_LOAD_ERROR = "TIME_LOG_LOAD_ERROR"
 export const TIME_LOG_LOADING = "TIME_LOG_LOADING"
+
+// user
+export const USERS_LOADING = "USERS_LOADING";
+export const USERS_LOADED = "USERS_LOADED";
+export const USERS_LOAD_ERROR = "USERS_LOAD_ERROR";
