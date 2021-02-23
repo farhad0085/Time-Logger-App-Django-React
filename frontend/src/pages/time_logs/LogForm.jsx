@@ -19,15 +19,16 @@ const LogForm = () => {
 
     // states
     const [date, setDate] = useState(todayDate)
-    const [hours, setHours] = useState("0")
+    const [hour, setHour] = useState("")
+    const [minute, setMinute] = useState("")
     const [injury_noted, setInjuryNoted] = useState(false)
     const [policy_violation_noted, setPolicyViolationNoted] = useState(false)
     const [comment, setComment] = useState("")
 
     const submitHandler = event => {
         event.preventDefault()
-
-        dispatch(createTimeLog({ date, hours, injury_noted, policy_violation_noted, comment }))
+        const duration = (parseInt(hour) * 60) + parseInt(minute)
+        dispatch(createTimeLog({ date, duration, injury_noted, policy_violation_noted, comment }))
     }
 
     useEffect(() => {
@@ -73,9 +74,15 @@ const LogForm = () => {
                                             </InputGroupAddon>
                                             <Input
                                                 placeholder="Hours"
-                                                value={hours}
-                                                type="number"
-                                                onChange={e => setHours(e.target.value)}
+                                                value={hour}
+                                                type="text"
+                                                onChange={e => setHour(e.target.value.replace(/[^0-9]/g,'').replace(/2[4-9]|[3-9]\d+|[1-9]\d{2,}/g, '23'))}
+                                            />
+                                            <Input
+                                                placeholder="Minutes"
+                                                value={minute}
+                                                type="text"
+                                                onChange={e => setMinute(e.target.value.replace(/[^0-9]/g,'').replace(/6[0-9]|[7-9]\d+|[1-9]\d{2,}/g, '59'))}
                                             />
                                         </InputGroup>
                                     </FormGroup>

@@ -8,7 +8,7 @@ const Users = ({users, loading}) => {
 
     return (
         <div>
-            {loading ? <h4 className="text-center">Loading...</h4> : (
+            {loading ? <h4 className="text-center pb-3">Loading...</h4> : (
                 <Table className="align-items-center table-flush" responsive>
                     <thead className="thead-light">
                         <tr>
