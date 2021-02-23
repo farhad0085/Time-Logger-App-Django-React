@@ -13,7 +13,7 @@ const Logs = ({ logs, loading }) => {
                     <thead className="thead-light">
                         <tr>
                             <th scope="col" className="text-center">Date</th>
-                            <th scope="col" className="text-center">Hours</th>
+                            <th scope="col" className="text-center">Duration</th>
                             <th scope="col" className="text-center">Injuries Noted</th>
                             <th scope="col" className="text-center">Violations noted</th>
                             <th scope="col" className="text-center">Comments</th>

@@ -27,7 +27,7 @@ const EditLog = ({ match }) => {
     useEffect(() => {
         if (Object.keys(timeLog.singleLog).length > 0) {
             setDate(timeLog.singleLog.date)
-            setHours(timeLog.singleLog.hours)
+            setDuration(timeLog.singleLog.duration)
             setInjuryNoted(timeLog.singleLog.injury_noted)
             setPolicyViolationNoted(timeLog.singleLog.policy_violation_noted)
             setComment(timeLog.singleLog.comment)
@@ -36,14 +36,14 @@ const EditLog = ({ match }) => {
 
     // states
     const [date, setDate] = useState(todayDate)
-    const [hours, setHours] = useState("0.00")
+    const [duration, setDuration] = useState("0")
     const [injury_noted, setInjuryNoted] = useState(false)
     const [policy_violation_noted, setPolicyViolationNoted] = useState(false)
     const [comment, setComment] = useState("")
 
     const submitHandler = event => {
         event.preventDefault()
-        const requestData = { date, hours, injury_noted, policy_violation_noted, comment }
+        const requestData = { date, duration, injury_noted, policy_violation_noted, comment }
         dispatch(updateTimeLog(logId, requestData))
     }
 
@@ -102,10 +102,10 @@ const EditLog = ({ match }) => {
                                                                     </InputGroupText>
                                                                 </InputGroupAddon>
                                                                 <Input
-                                                                    placeholder="Hours"
-                                                                    value={hours}
+                                                                    placeholder="Duration"
+                                                                    value={duration}
                                                                     type="number"
-                                                                    onChange={e => setHours(e.target.value)}
+                                                                    onChange={e => setDuration(e.target.value)}
                                                                 />
                                                             </InputGroup>
                                                         </FormGroup>

@@ -48,10 +48,10 @@ export const createTimeLog = (data) => (dispatch) => {
     })
     .catch((error) => {
       console.log(error.response);
-      if (error.response && error.response.data.hours) {
+      if (error.response && error.response.data.duration) {
         dispatch({
           type: Types.TIME_LOG_SAVE_ERROR,
-          payload: { message: "Hours must be less than or equal 24" },
+          payload: { message: "Duration must be less than or equal 24 hours" },
         });
       } else {
         dispatch({
@@ -88,10 +88,10 @@ export const updateTimeLog = (logId, data) => (dispatch) => {
     })
     .catch((error) => {
       console.log(error.response);
-      if (error.response && error.response.data.hours) {
+      if (error.response && error.response.data.duration) {
         dispatch({
           type: Types.TIME_LOG_SAVE_ERROR,
-          payload: { message: "Hours must be less than or equal 24" },
+          payload: { message: "Duration must be less than or equal 24 hours" },
         });
       } else {
         dispatch({

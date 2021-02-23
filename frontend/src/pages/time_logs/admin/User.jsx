@@ -31,7 +31,7 @@ const User = ({ user }) => {
         <tr>
             <th scope="row" className="text-center">{user.username}</th>
             <td className="text-center">{user.email}</td>
-            <td className="text-center">{user.hours}</td>
+            <td className="text-center">{user.duration}</td>
             <td className="text-center">
                 <Button
                     color="primary"

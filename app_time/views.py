@@ -1,4 +1,4 @@
-from app_time.utils import format_hours, format_total_hours
+from app_time.utils import format_time
 from rest_framework.response import Response
 from app_time.serializers import TimeLogSerializer
 from app_time.models import TimeLog
@@ -24,7 +24,7 @@ class LogTimeListAPIView(APIView):
         data = TimeLogSerializer(logs, many=True).data
         
         for item in data:
-            item['hours'] = format_hours(item['hours'])
+            item['duration'] = format_time(item['duration'])
         return Response(data, 200)
 
     def post(self, request):
@@ -49,6 +49,9 @@ class LogTimeListAPIView(APIView):
                 ).all()
 
         data = TimeLogSerializer(logs, many=True).data
+
+        for item in data:
+            item['duration'] = format_time(item['duration'])
         return Response(data, 200)
 
 
@@ -79,7 +82,7 @@ class LogTimeCreateAPIView(APIView):
                 return Response(data, 403)
 
             log.created_by = user
-            log.hours = serializer.validated_data.get('hours', 0)
+            log.duration = serializer.validated_data.get('duration', 0)
             log.injury_noted = serializer.validated_data.get('injury_noted', False)
             log.policy_violation_noted = serializer.validated_data.get('policy_violation_noted', False)
             log.comment = serializer.validated_data.get('comment', '')
@@ -138,7 +141,7 @@ class UserDataWithTimeLog(APIView):
                 "id": user.id,
                 "username": user.username,
                 "email": user.email,
-                "hours": format_total_hours(log.hours for log in logs)
+                "duration": format_time(sum(log.duration for log in logs))
             })
 
         return Response(response_data, 200)

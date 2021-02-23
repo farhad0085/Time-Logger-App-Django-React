@@ -19,7 +19,7 @@ const LogForm = () => {
 
     // states
     const [date, setDate] = useState(todayDate)
-    const [hours, setHours] = useState("0.00")
+    const [hours, setHours] = useState("0")
     const [injury_noted, setInjuryNoted] = useState(false)
     const [policy_violation_noted, setPolicyViolationNoted] = useState(false)
     const [comment, setComment] = useState("")

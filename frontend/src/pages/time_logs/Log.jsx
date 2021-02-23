@@ -29,7 +29,7 @@ const Log = ({ log }) => {
     return (
         <tr>
             <th scope="row" className="text-center">{log.date}</th>
-            <td className="text-center">{log.hours}</td>
+            <td className="text-center">{log.duration}</td>
             <td className="text-center">{log.injury_noted ? <i className="fa fa-check"></i> : <i className="fa fa-times"></i>}</td>
             <td className="text-center">{log.policy_violation_noted ? <i className="fa fa-check"></i> : <i className="fa fa-times"></i>}</td>
             <td className="text-center">{log.comment || "N/A"}</td>
