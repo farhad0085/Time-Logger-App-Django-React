@@ -10,6 +10,7 @@ const UsersPage = (props) => {
 
     const dispatch = useDispatch()
     const admin = useSelector(state => state.admin)
+    const auth = useSelector(state => state.auth)
 
     useEffect(() => {
         dispatch(loadUsers())
@@ -31,7 +32,12 @@ const UsersPage = (props) => {
                                     </div>
                                 </Row>
                             </CardHeader>
-                            <Users users={admin.users} loading={admin.loading} />
+                            
+                            {auth.user.is_superuser ? (
+                                <Users users={admin.users} loading={admin.loading} />
+                            ) : (
+                            <h4 className="text-center pb-4" style={{color: 'red', fontWeight: 'bold'}}>You're not allowed in this page!</h4>
+                            )}
                         </Card>
                     </Col>
                 </Row>

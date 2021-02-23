@@ -66,6 +66,7 @@ export const createTimeLog = (data) => (dispatch) => {
 };
 
 export const deleteTimeLog = (logId) => (dispatch) => {
+  dispatch({ type: Types.TIME_LOGS_LOADING, payload: true });
   axios
     .delete(`/time/logs/${logId}`, { headers: getHeaders() })
     .then((res) => {
