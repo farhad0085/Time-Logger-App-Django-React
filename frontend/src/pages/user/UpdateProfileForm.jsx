@@ -16,6 +16,7 @@ const UpdateProfileForm = () => {
     const [first_name, setFirstName] = useState("")
     const [last_name, setLastName] = useState("")
     const [address, setAddress] = useState("")
+    const [phone, setPhone] = useState("")
     const [city, setCity] = useState("")
     const [country, setCountry] = useState("")
     const [postal_code, setPostalCode] = useState("")
@@ -119,7 +120,20 @@ const UpdateProfileForm = () => {
                         </Col>
                     </Row>
                     <Row>
-                        <Col lg="4">
+                        <Col lg="6">
+                            <FormGroup>
+                                <Label htmlFor="input-phone" text="Phone" />
+                                <Input
+                                    className="form-control-alternative"
+                                    id="input-phone"
+                                    placeholder="Phone"
+                                    type="text"
+                                    value={phone}
+                                    onChange={e => setPhone(e.target.value)}
+                                />
+                            </FormGroup>
+                        </Col>
+                        <Col lg="6">
                             <FormGroup>
                                 <Label htmlFor="input-city" text="City" />
                                 <Input
@@ -132,8 +146,11 @@ const UpdateProfileForm = () => {
                                 />
                             </FormGroup>
                         </Col>
-                        <Col lg="4">
-                            <FormGroup>
+                        
+                    </Row>
+                    <Row>
+                        <Col lg="6">
+                        <FormGroup>
                                 <Label htmlFor="input-country" text="Country" />
                                 <Input
                                     className="form-control-alternative"
@@ -145,7 +162,7 @@ const UpdateProfileForm = () => {
                                 />
                             </FormGroup>
                         </Col>
-                        <Col lg="4">
+                        <Col lg="6">
                             <FormGroup>
                                 <Label htmlFor="input-postal-code" text="Postal code" />
                                 <Input

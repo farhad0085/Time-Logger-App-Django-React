@@ -95,7 +95,6 @@ class PasswordResetSerializer(serializers.Serializer):
         self.reset_form.save(**opts)
 
 
-
 class ChangePasswordSerializer(PasswordChangeSerializer):
     old_password = serializers.CharField(
         max_length=128,

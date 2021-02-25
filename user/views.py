@@ -3,6 +3,7 @@ from app_time.permissions import IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import *
+from .permissions import AdminOrOwnProfile
 from rest_auth.registration.views import RegisterView
 from django.contrib.auth import authenticate
 from rest_framework.authentication import TokenAuthentication
@@ -59,6 +60,13 @@ class SingleUser(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
     serializer_class = UserSerializer
     queryset = User.objects.all()
+
+    def get_permissions(self):
+        if self.request.method == ["GET", "DELETE"]:
+            self.permission_classes = [IsAuthenticated, IsAdminUser]
+        elif self.request.method in ["PUT", "PATCH"]:
+            self.permission_classes = [IsAuthenticated, AdminOrOwnProfile]
+        return [permission() for permission in self.permission_classes]
 
 
 class UpdatePasswordView(PasswordChangeView):
