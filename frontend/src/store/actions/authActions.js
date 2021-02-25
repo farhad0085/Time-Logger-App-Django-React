@@ -59,7 +59,6 @@ export const loadUserInfo = () => (dispatch) => {
   axios
     .get("/auth/user/me/", { headers: getHeaders() })
     .then((res) => {
-        console.log(res.data);
       dispatch({ type: Types.AUTH_LOADING, payload: false });
       dispatch({ type: Types.USER_LOGGED_IN, payload: res.data });
     })

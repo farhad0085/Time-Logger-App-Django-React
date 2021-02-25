@@ -1,7 +1,9 @@
 import * as Types from '../actions/actionTypes'
 
 const initialState = {
-    loading: false
+    loading: false,
+    userPasswordUpdated: false,
+    passwordUpdateErrors: {}
 }
 
 function userProfileReducer(state = initialState, action) {
@@ -10,6 +12,19 @@ function userProfileReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: action.payload
+            }
+        }
+        case Types.USER_PASSWORD_UPDATED: {
+            return {
+                ...state,
+                userPasswordUpdated: true
+            }
+        }
+        case Types.USER_PASSWORD_UPDATE_ERROR: {
+            return {
+                ...state,
+                passwordUpdateErrors: action.payload,
+                userPasswordUpdated: false
             }
         }
         default: return state

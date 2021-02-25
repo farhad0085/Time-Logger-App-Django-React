@@ -127,3 +127,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
+# rest auth password change settings
+LOGOUT_ON_PASSWORD_CHANGE = False
+OLD_PASSWORD_FIELD_ENABLED = True

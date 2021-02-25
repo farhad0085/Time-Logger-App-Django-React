@@ -1,10 +1,9 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import {
     Col, Card, CardBody, Form, FormGroup, InputGroup, Row,
     InputGroupAddon, InputGroupText, Input, Button, Container
 } from 'reactstrap'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { updatePassword } from '../../store/actions/userProfileActions'
 
 const UpdatePasswordForm = () => {
@@ -14,13 +13,13 @@ const UpdatePasswordForm = () => {
 
     const submitHandler = event => {
         event.preventDefault()
-        dispatch(updatePassword({old_password, new_password_1, new_password_2}))
+        dispatch(updatePassword({ old_password, new_password1, new_password2 }))
     }
 
     // states
     const [old_password, setOldPassword] = useState("")
-    const [new_password_1, setNewPassword1] = useState("")
-    const [new_password_2, setNewPassword2] = useState("")
+    const [new_password1, setNewPassword1] = useState("")
+    const [new_password2, setNewPassword2] = useState("")
 
     return (
         <Container className="my-5" fluid>
@@ -46,6 +45,11 @@ const UpdatePasswordForm = () => {
                                             onChange={e => setOldPassword(e.target.value)}
                                         />
                                     </InputGroup>
+                                    {userProfile.passwordUpdateErrors.old_password && (
+                                        <small style={{ color: "red" }}>
+                                            {userProfile.passwordUpdateErrors.old_password[0]}
+                                        </small>
+                                    )}
                                 </FormGroup>
                                 <FormGroup>
                                     <InputGroup className="input-group-alternative">
@@ -56,11 +60,16 @@ const UpdatePasswordForm = () => {
                                         </InputGroupAddon>
                                         <Input
                                             placeholder="New Password"
-                                            value={new_password_1}
+                                            value={new_password1}
                                             onChange={e => setNewPassword1(e.target.value)}
                                             type="password"
                                         />
                                     </InputGroup>
+                                    {userProfile.passwordUpdateErrors.new_password1 && (
+                                        <small style={{ color: "red" }}>
+                                            {userProfile.passwordUpdateErrors.new_password1[0]}
+                                        </small>
+                                    )}
                                 </FormGroup>
                                 <FormGroup className="mb-3">
                                     <InputGroup className="input-group-alternative">
@@ -71,18 +80,25 @@ const UpdatePasswordForm = () => {
                                         </InputGroupAddon>
                                         <Input
                                             placeholder="Confirm Password"
-                                            value={new_password_2}
+                                            value={new_password2}
                                             type="password"
                                             onChange={e => setNewPassword2(e.target.value)}
                                         />
                                     </InputGroup>
+                                    {userProfile.passwordUpdateErrors.new_password2 && (
+                                        <small style={{ color: "red" }}>
+                                            {userProfile.passwordUpdateErrors.new_password2[0]}
+                                        </small>
+                                    )}
                                 </FormGroup>
+                                {userProfile.userPasswordUpdated && (
+                                    <div className="text-center">
+                                        <small style={{ color: 'green', fontWeight: 'bold' }}>
+                                            Password updated successfully!
+                                        </small>
+                                    </div>
+                                )}
 
-                                <div className="text-center">
-                                    <small style={{ color: 'green', fontWeight: 'bold' }}>
-                                        Password updated successfully! <Link to="/">Go back</Link>
-                                    </small>
-                                </div>
                                 <div className="text-center">
                                     <Button disabled={userProfile.loading} className="my-4" color="primary" type="submit">
                                         {userProfile.loading ? "Updating..." : "Update Password"}

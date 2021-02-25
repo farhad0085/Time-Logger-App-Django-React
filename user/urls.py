@@ -10,5 +10,6 @@ urlpatterns = [
     path('register/', RegistrationView.as_view()),
     path('register/', include('rest_auth.registration.urls')),
     path('password/reset/confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('password/change/', UpdatePasswordView.as_view()),
     path('', include('rest_auth.urls')),
 ]
