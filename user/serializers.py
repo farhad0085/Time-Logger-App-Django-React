@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from rest_auth.registration.serializers import RegisterSerializer
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from django.conf import settings
+from rest_auth.serializers import PasswordChangeSerializer
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
@@ -95,27 +96,28 @@ class PasswordResetSerializer(serializers.Serializer):
 
 
 
-class PasswordChangeSerializer(serializers.Serializer):
-    old_password = serializers.CharField(max_length=128)
-    new_password1 = serializers.CharField(max_length=128)
-    new_password2 = serializers.CharField(max_length=128)
-
-    set_password_form_class = SetPasswordForm
-
-    def __init__(self, *args, **kwargs):
-        self.old_password_field_enabled = getattr(
-            settings, 'OLD_PASSWORD_FIELD_ENABLED', False
-        )
-        self.logout_on_password_change = getattr(
-            settings, 'LOGOUT_ON_PASSWORD_CHANGE', False
-        )
-        super(PasswordChangeSerializer, self).__init__(*args, **kwargs)
-
-        if not self.old_password_field_enabled:
-            self.fields.pop('old_password')
-
-        self.request = self.context.get('request')
-        self.user = getattr(self.request, 'user', None)
+class ChangePasswordSerializer(PasswordChangeSerializer):
+    old_password = serializers.CharField(
+        max_length=128,
+        error_messages={
+            'required': 'Old password is required',
+            'blank': "Please enter your account's old password"
+        }
+    )
+    new_password1 = serializers.CharField(
+        max_length=128,
+        error_messages={
+            'required': 'New password is required',
+            'blank': "Please enter new password"
+        }
+    )
+    new_password2 = serializers.CharField(
+        max_length=128,
+        error_messages={
+            'required': 'Confirm password is required',
+            'blank': "Please enter confirm password"
+        }
+    )
 
     def validate_old_password(self, value):
         invalid_password_conditions = (
@@ -125,20 +127,5 @@ class PasswordChangeSerializer(serializers.Serializer):
         )
 
         if all(invalid_password_conditions):
-            raise serializers.ValidationError('Invalid password')
+            raise serializers.ValidationError("Old password didn't match")
         return value
-
-    def validate(self, attrs):
-        self.set_password_form = self.set_password_form_class(
-            user=self.user, data=attrs
-        )
-
-        if not self.set_password_form.is_valid():
-            raise serializers.ValidationError(self.set_password_form.errors)
-        return attrs
-
-    def save(self):
-        self.set_password_form.save()
-        if not self.logout_on_password_change:
-            from django.contrib.auth import update_session_auth_hash
-            update_session_auth_hash(self.request, self.user)

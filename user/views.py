@@ -11,6 +11,7 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from rest_auth.views import PasswordChangeView
 
+
 class LoginView(APIView):
     """Class based view loggin in user and returning Auth Token."""
 
@@ -61,4 +62,4 @@ class SingleUser(RetrieveUpdateDestroyAPIView):
 
 
 class UpdatePasswordView(PasswordChangeView):
-    serializer_class = PasswordChangeSerializer
+    serializer_class = ChangePasswordSerializer
