@@ -29,3 +29,6 @@ export const TIME_LOG_LOADING = "TIME_LOG_LOADING"
 export const USERS_LOADING = "USERS_LOADING";
 export const USERS_LOADED = "USERS_LOADED";
 export const USERS_LOAD_ERROR = "USERS_LOAD_ERROR";
+
+// user profile
+export const USER_PROFILE_LOADING = "USER_PROFILE_LOADING";

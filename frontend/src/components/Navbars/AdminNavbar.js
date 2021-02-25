@@ -66,13 +66,9 @@ const AdminNavbar = (props) => {
                 </Media>
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow" right>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
+                <DropdownItem to="/edit-profile" tag={Link}>
                   <i className="ni ni-single-02" />
-                  <span>Profile</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-settings-gear-65" />
-                  <span>Settings</span>
+                  <span>Edit Profile</span>
                 </DropdownItem>
                 {auth.user.is_superuser && (
                     <DropdownItem to="/admin/users" tag={Link}>
