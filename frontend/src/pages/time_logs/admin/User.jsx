@@ -29,7 +29,8 @@ const User = ({ user }) => {
 
     return (
         <tr>
-            <th scope="row" className="text-center">{user.username}</th>
+            <th scope="row" className="text-center">{user.id}</th>
+            <th className="text-center">{user.username}</th>
             <td className="text-center">{user.email}</td>
             <td className="text-center">{user.duration}</td>
             <td className="text-center">

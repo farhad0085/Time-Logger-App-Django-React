@@ -21,7 +21,7 @@ const DashboardLayout = ({ props, children }) => {
             <div className="main-content" ref={mainContent}>
                 <AdminNavbar
                     {...props}
-                    brandText="Logo Here"
+                    brandText="Time Logger"
                 />
                 {children}
                 <Container fluid>

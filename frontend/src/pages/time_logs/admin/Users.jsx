@@ -12,6 +12,7 @@ const Users = ({users, loading}) => {
                 <Table className="align-items-center table-flush" responsive>
                     <thead className="thead-light">
                         <tr>
+                            <th scope="col" className="text-center">User ID</th>
                             <th scope="col" className="text-center">Username</th>
                             <th scope="col" className="text-center">Email</th>
                             <th scope="col" className="text-center">This Month Total Time</th>

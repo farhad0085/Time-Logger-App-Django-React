@@ -35,7 +35,7 @@ const UpdatePasswordForm = () => {
                                     <InputGroup className="input-group-alternative">
                                         <InputGroupAddon addonType="prepend">
                                             <InputGroupText>
-                                                <i className="far fa-calendar" />
+                                                <i className="fa fa-key" />
                                             </InputGroupText>
                                         </InputGroupAddon>
                                         <Input
@@ -51,11 +51,11 @@ const UpdatePasswordForm = () => {
                                         </small>
                                     )}
                                 </FormGroup>
-                                <FormGroup>
+                                <FormGroup className="mb-3">
                                     <InputGroup className="input-group-alternative">
                                         <InputGroupAddon addonType="prepend">
                                             <InputGroupText>
-                                                <i className="far fa-clock" />
+                                                <i className="fa fa-key" />
                                             </InputGroupText>
                                         </InputGroupAddon>
                                         <Input
@@ -75,7 +75,7 @@ const UpdatePasswordForm = () => {
                                     <InputGroup className="input-group-alternative">
                                         <InputGroupAddon addonType="prepend">
                                             <InputGroupText>
-                                                <i className="far fa-calendar" />
+                                                <i className="fa fa-key" />
                                             </InputGroupText>
                                         </InputGroupAddon>
                                         <Input
@@ -100,7 +100,7 @@ const UpdatePasswordForm = () => {
                                 )}
 
                                 <div className="text-center">
-                                    <Button disabled={userProfile.loading} className="my-4" color="primary" type="submit">
+                                    <Button disabled={userProfile.loading} className="my-3" color="primary" type="submit">
                                         {userProfile.loading ? "Updating..." : "Update Password"}
                                     </Button>
                                 </div>
