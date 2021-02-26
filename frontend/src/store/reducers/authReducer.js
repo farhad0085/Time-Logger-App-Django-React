@@ -5,7 +5,19 @@ const initialState = {
   loginErrors: {},
   registerErrors: {},
   loading: false,
-  user: {},
+  user: {
+    username: "",
+    email: "",
+    first_name: "",
+    last_name: "",
+    profile: {
+      address: "",
+      phone: "",
+      city: "",
+      country: "",
+      postal_code: "",
+    },
+  },
 };
 
 function authReducer(state = initialState, action) {
