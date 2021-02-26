@@ -27,7 +27,7 @@ const LogForm = () => {
 
     const submitHandler = event => {
         event.preventDefault()
-        const duration = (parseInt(hour) * 60) + parseInt(minute)
+        const duration = (parseInt(hour || 0) * 60) + parseInt(minute || 0)
         dispatch(createTimeLog({ date, duration, injury_noted, policy_violation_noted, comment }))
     }
 

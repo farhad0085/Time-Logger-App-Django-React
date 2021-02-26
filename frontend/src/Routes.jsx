@@ -13,6 +13,7 @@ import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFound";
 import LogoutPage from "./pages/auth/Logout";
 import { useSelector } from 'react-redux'
+import UserPage from "./pages/user/UserPage";
 
 const Routes = () => {
     return (
@@ -21,6 +22,7 @@ const Routes = () => {
             <PrivateRoute path="/create-log" exact component={LogForm} />
             <PrivateRoute path="/log/update/:logId" exact component={EditLog} />
             <PrivateRoute path="/admin/users" exact component={UsersPage} />
+            <PrivateRoute path="/admin/user/:userId" exact component={UserPage} />
             <PrivateRoute path="/edit-profile" exact component={EditProfilePage} />
 
             {/* auth routes */}

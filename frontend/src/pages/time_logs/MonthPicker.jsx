@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import moment from 'moment'
 import { useDispatch } from 'react-redux'
 import { loadLogs } from '../../store/actions/timeLogActions';
+import { withRouter } from "react-router-dom";
 
-const MonthPicker = () => {
+
+const MonthPicker = ({match}) => {
 
     const dispatch = useDispatch()
 
@@ -13,7 +15,10 @@ const MonthPicker = () => {
         const value = e.target.value
         if (JSON.stringify(value) !== JSON.stringify(monthValue)) {
             const date = moment(value)
-            const filter = { year: date.year(), month: date.month() + 1 }
+            let filter = { year: date.year(), month: date.month() + 1 }
+            if (match.params.userId){
+                filter = {...filter, created_by: match.params.userId}
+            }
             dispatch(loadLogs(filter))
         }
         setMonthValue(value)
@@ -36,5 +41,5 @@ const MonthPicker = () => {
 }
 
 
-export default MonthPicker
+export default withRouter(MonthPicker)
 

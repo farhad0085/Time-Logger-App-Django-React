@@ -5,35 +5,27 @@ import * as Types from "./actionTypes";
 export const loadLogs = (filter) => (dispatch) => {
   dispatch({ type: Types.TIME_LOGS_LOADING, payload: true });
 
-  if (filter) {
-    axios
-      .post("/time/logs/", filter, { headers: getHeaders() })
-      .then((res) => {
-        dispatch({ type: Types.TIME_LOGS_LOADED, payload: res.data });
-        dispatch({ type: Types.TIME_LOGS_LOADING, payload: false });
-      })
-      .catch((error) => {
-        console.log(error.response);
-        dispatch({ type: Types.TIME_LOGS_LOADING, payload: false });
+  const method = filter ? "post" : "get";
+  axios({
+    method: method,
+    url: "/time/logs/",
+    data: filter,
+    headers: getHeaders(),
+  })
+    .then((res) => {
+      dispatch({ type: Types.TIME_LOGS_LOADED, payload: res.data });
+      dispatch({ type: Types.TIME_LOGS_LOADING, payload: false });
+    })
+    .catch((error) => {
+      console.log(error.response);
+      dispatch({
+        type: Types.TIME_LOGS_LOAD_ERROR,
+        payload: error.response
+          ? error.response.data
+          : { message: "Something went wrong" },
       });
-  } else {
-    axios
-      .get("/time/logs/", { headers: getHeaders() })
-      .then((res) => {
-        dispatch({ type: Types.TIME_LOGS_LOADED, payload: res.data });
-        dispatch({ type: Types.TIME_LOGS_LOADING, payload: false });
-      })
-      .catch((error) => {
-        console.log(error.response);
-        dispatch({
-          type: Types.TIME_LOGS_LOAD_ERROR,
-          payload: error.response
-            ? error.response.data
-            : { message: "Something went wrong" },
-        });
-        dispatch({ type: Types.TIME_LOGS_LOADING, payload: false });
-      });
-  }
+      dispatch({ type: Types.TIME_LOGS_LOADING, payload: false });
+    });
 };
 
 export const createTimeLog = (data) => (dispatch) => {
