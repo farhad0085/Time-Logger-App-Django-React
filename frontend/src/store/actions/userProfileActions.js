@@ -23,6 +23,7 @@ export const loadUserProfileInformation = (userId) => (dispatch) => {
 
 export const updateProfile = (userId, profileData) => (dispatch) => {
   dispatch({ type: Types.USER_PROFILE_LOADING, payload: true });
+  dispatch({ type: Types.USER_PROFILE_UPDATE_ERROR, payload: {} });
   axios
     .put(`/auth/user/${userId}/`, profileData, { headers: getHeaders() })
     .then((res) => {

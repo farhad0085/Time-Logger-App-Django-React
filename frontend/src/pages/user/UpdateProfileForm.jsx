@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, CardBody, FormGroup, Form, Input, Row, Col } from "reactstrap";
 import { useSelector, useDispatch } from 'react-redux'
 import { updateProfile } from '../../store/actions/userProfileActions'
+import { USER_PROFILE_UPDATE_ERROR } from "../../store/actions/actionTypes";
 
 
 const UpdateProfileForm = () => {
@@ -33,9 +34,15 @@ const UpdateProfileForm = () => {
 		if (auth.user.profile.postal_code) setPostalCode(auth.user.profile.postal_code)
 	}, [auth.user])
 
+	useEffect(() => {
+		// remove the previous errors and success message
+		dispatch({type: USER_PROFILE_UPDATE_ERROR, payload: {} })
+		// eslint-disable-next-line
+	}, [])
+
 	const submitHandler = (e) => {
 		e.preventDefault();
-		const data = { username, email, first_name, last_name, profile: {address, city, phone, country, postal_code} }
+		const data = { username, email, first_name, last_name, profile: { address, city, phone, country, postal_code } }
 		dispatch(updateProfile(auth.user.id, data))
 	}
 
@@ -54,6 +61,8 @@ const UpdateProfileForm = () => {
 								labelText="Username"
 								value={username}
 								disabled
+								hasError={!!userProfile.userProfileUpdateErrors.username}
+								errorMsg={userProfile.userProfileUpdateErrors.username}
 							/>
 						</Col>
 						<Col lg="6">
@@ -62,6 +71,8 @@ const UpdateProfileForm = () => {
 								labelText="Email address"
 								value={email}
 								disabled
+								hasError={!!userProfile.userProfileUpdateErrors.email}
+								errorMsg={userProfile.userProfileUpdateErrors.email}
 							/>
 						</Col>
 					</Row>
@@ -72,6 +83,8 @@ const UpdateProfileForm = () => {
 								labelText="First name"
 								value={first_name}
 								onChange={setFirstName}
+								hasError={!!userProfile.userProfileUpdateErrors.first_name}
+								errorMsg={userProfile.userProfileUpdateErrors.first_name}
 							/>
 						</Col>
 						<Col lg="6">
@@ -80,6 +93,8 @@ const UpdateProfileForm = () => {
 								labelText="Last name"
 								value={last_name}
 								onChange={setLastName}
+								hasError={!!userProfile.userProfileUpdateErrors.last_name}
+								errorMsg={userProfile.userProfileUpdateErrors.last_name}
 							/>
 						</Col>
 					</Row>
@@ -98,6 +113,8 @@ const UpdateProfileForm = () => {
 								labelText="Address"
 								value={address}
 								onChange={setAddress}
+								hasError={!!(userProfile.userProfileUpdateErrors.profile && userProfile.userProfileUpdateErrors.profile.address)}
+								errorMsg={(userProfile.userProfileUpdateErrors.profile && userProfile.userProfileUpdateErrors.profile.address)}
 							/>
 						</Col>
 					</Row>
@@ -108,6 +125,8 @@ const UpdateProfileForm = () => {
 								labelText="Phone"
 								value={phone}
 								onChange={setPhone}
+								hasError={!!(userProfile.userProfileUpdateErrors.profile && userProfile.userProfileUpdateErrors.profile.phone)}
+								errorMsg={(userProfile.userProfileUpdateErrors.profile && userProfile.userProfileUpdateErrors.profile.phone)}
 							/>
 						</Col>
 						<Col lg="6">
@@ -116,9 +135,10 @@ const UpdateProfileForm = () => {
 								labelText="City"
 								value={city}
 								onChange={setCity}
+								hasError={!!(userProfile.userProfileUpdateErrors.profile && userProfile.userProfileUpdateErrors.profile.city)}
+								errorMsg={(userProfile.userProfileUpdateErrors.profile && userProfile.userProfileUpdateErrors.profile.city)}
 							/>
 						</Col>
-
 					</Row>
 					<Row>
 						<Col lg="6">
@@ -127,6 +147,8 @@ const UpdateProfileForm = () => {
 								labelText="Country"
 								value={country}
 								onChange={setCountry}
+								hasError={!!(userProfile.userProfileUpdateErrors.profile && userProfile.userProfileUpdateErrors.profile.country)}
+								errorMsg={(userProfile.userProfileUpdateErrors.profile && userProfile.userProfileUpdateErrors.profile.country)}
 							/>
 						</Col>
 						<Col lg="6">
@@ -135,15 +157,26 @@ const UpdateProfileForm = () => {
 								labelText="Postal code"
 								value={postal_code}
 								onChange={setPostalCode}
+								hasError={!!(userProfile.userProfileUpdateErrors.profile && userProfile.userProfileUpdateErrors.profile.postal_code)}
+								errorMsg={(userProfile.userProfileUpdateErrors.profile && userProfile.userProfileUpdateErrors.profile.postal_code)}
 							/>
 						</Col>
 					</Row>
 				</div>
-				<div className="text-center">
-					<small style={{ color: 'green', fontWeight: 'bold' }}>
-						Profile updated successfully!
-					</small>
-				</div>
+				{userProfile.userProfileUpdated && (
+					<div className="text-center">
+						<small style={{ color: 'green', fontWeight: 'bold' }}>
+							Profile updated successfully!
+						</small>
+					</div>
+				)}
+				{Object.keys(userProfile.userProfileUpdateErrors).length > 0 && (
+					<div className="text-center">
+						<small style={{ color: 'red', fontWeight: 'bold' }}>
+							Couldn't save the information, please try again!
+						</small>
+					</div>
+				)}
 
 				<div className="text-right">
 					<Button disabled={userProfile.loading} className="my-4" color="primary" type="submit">
@@ -174,7 +207,7 @@ const Label = ({ htmlFor, text }) => {
 
 const CustomFormGroup = (props) => {
 
-	const { inputId, labelText, value, onChange, inputType, placeholder, disabled } = props
+	const { inputId, labelText, value, onChange, inputType, placeholder, disabled, hasError, errorMsg } = props
 
 	return (
 		<FormGroup>
@@ -188,6 +221,11 @@ const CustomFormGroup = (props) => {
 				disabled={disabled || false}
 				onChange={onChange ? e => onChange(e.target.value) : null}
 			/>
+			{hasError && (
+				<small style={{ color: "red", fontWeight: 'bold' }}>
+						{errorMsg}
+				</small>
+			)}
 		</FormGroup>
 	)
 }
