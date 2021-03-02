@@ -36,6 +36,11 @@ const TopNavBar = (props) => {
             {auth.isAuthenticated ? (
               <>
                 <NavItem>
+                  <Link to="/create-log" tag={NavLink}>
+                    <i className="fa fa-clock" /> Create Log
+                  </Link>
+                </NavItem>
+                <NavItem>
                   <Link to="/edit-profile" tag={NavLink}>
                     <i className="fa fa-user" /> {formatUserName(auth.user)}
                   </Link>
