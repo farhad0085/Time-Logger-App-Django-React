@@ -4,7 +4,7 @@ const initialState = {
     loading: false,
     userPasswordUpdated: false,
     passwordUpdateErrors: {},
-    userProfileUpdate: false,
+    userProfileUpdated: false,
     userProfileUpdateErrors: {},
     userProfileInformation: {}
 }
@@ -34,6 +34,20 @@ function userProfileReducer(state = initialState, action) {
                 ...state,
                 passwordUpdateErrors: action.payload,
                 userPasswordUpdated: false
+            }
+        }
+        case Types.USER_PROFILE_UPDATED: {
+            return {
+                ...state,
+                userProfileUpdated: true,
+                userProfileInformation: action.payload
+            }
+        }
+        case Types.USER_PROFILE_UPDATE_ERROR: {
+            return {
+                ...state,
+                userProfileUpdated: false,
+                userProfileUpdateErrors: action.payload
             }
         }
         default: return state

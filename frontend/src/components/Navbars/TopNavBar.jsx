@@ -49,7 +49,7 @@ const TopNavBar = (props) => {
                 )}
                 <NavItem>
                   <Link to="/logout" tag={NavLink}>
-                    <i class="fas fa-sign-out-alt" /> Logout
+                    <i className="fas fa-sign-out-alt" /> Logout
                   </Link>
                 </NavItem>
               </>
@@ -67,8 +67,6 @@ const TopNavBar = (props) => {
                   </NavItem>
                 </>
               )}
-
-
           </Nav>
         </UncontrolledCollapse>
       </Container>

@@ -2,7 +2,7 @@ from .models import UserProfile
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_auth.registration.serializers import RegisterSerializer
-from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
+from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
 from rest_auth.serializers import PasswordChangeSerializer
 
@@ -16,16 +16,29 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = "__all__"
+        read_only_fields = ['user']
 
 
 class UserSerializer(serializers.ModelSerializer):
 
-    profile = UserProfileSerializer(read_only=True)
+    profile = UserProfileSerializer()
 
     class Meta:
         model = User
         exclude = ['password', 'user_permissions', 'is_staff', 'groups']
 
+    def update(self, instance, validated_data):
+        for attr, value in validated_data.items():
+            # save everything other than profile
+            if attr != "profile":
+                setattr(instance, attr, value)
+        
+            if attr == "profile":
+                for profile_attr, profile_value in value.items():
+                    setattr(instance.profile, profile_attr, profile_value)
+
+        instance.save()
+        return instance
 
 class RegistrationSerializer(RegisterSerializer):
 
