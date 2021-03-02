@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Button, Card, CardHeader, Container, Row, Col } from "reactstrap";
-import Header from "../../components/Headers/Header";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import UpdatePasswordForm from "./UpdatePasswordForm";
 import UpdateProfileForm from "./UpdateProfileForm";
@@ -10,7 +9,6 @@ const EditProfilePage = () => {
 
     return (
         <DashboardLayout>
-            <Header />
             {/* Page content */}
             <Container className="mt-5" fluid>
                 <Row>

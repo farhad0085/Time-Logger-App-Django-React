@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Card, CardHeader, Container, Row, Col } from "reactstrap";
-import Header from "../../../components/Headers/Header";
 import { useSelector, useDispatch } from 'react-redux'
 import DashboardLayout from '../../../components/layouts/DashboardLayout'
 import { loadUsers } from '../../../store/actions/adminActions'
@@ -20,8 +19,6 @@ const UsersPage = (props) => {
 
     return (
         <DashboardLayout>
-            <Header />
-
             <Container className="mt-5" fluid>
                 <Row className="mt-5">
                     <Col className="mb-5 mb-xl-0" xl="12">

@@ -1,8 +1,8 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { Container, Row } from "reactstrap";
-import AuthNavbar from "../Navbars/AuthNavbar";
 import AuthFooter from "../Footers/AuthFooter";
+import TopNavBar from "../Navbars/TopNavBar";
 
 const AuthLayout = (props) => {
     const mainContent = React.useRef(null);
@@ -23,9 +23,8 @@ const AuthLayout = (props) => {
     return (
         <>
             <div className="main-content" ref={mainContent}>
-                <AuthNavbar />
+                <TopNavBar />
                 <div className="header bg-gradient-info py-7 py-lg-8">
-
                     <div className="separator separator-bottom separator-skew zindex-100">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

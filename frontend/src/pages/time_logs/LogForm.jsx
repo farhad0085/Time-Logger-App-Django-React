@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { createTimeLog } from '../../store/actions/timeLogActions'
 import moment from 'moment';
 import DashboardLayout from '../../components/layouts/DashboardLayout';
-import Header from '../../components/Headers/Header';
 import {
     Col, Card, CardBody, Form, FormGroup, InputGroup, Row,
     InputGroupAddon, InputGroupText, Input, Button, Container
@@ -39,7 +38,6 @@ const LogForm = () => {
 
     return (
         <DashboardLayout>
-            <Header />
             <Container className="mt-5" fluid>
                 <Row className="justify-content-md-center">
                     <Col lg="5" md="7">
@@ -88,7 +86,6 @@ const LogForm = () => {
                                     </FormGroup>
                                     <FormGroup>
                                         <InputGroup className="input-group-alternative">
-                                            
                                             <Input
                                                 placeholder="Comments (Optional)"
                                                 value={comment}

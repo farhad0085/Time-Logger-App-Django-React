@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { Card, CardHeader, Container, Row, Col } from "reactstrap";
-import Header from "../../components/Headers/Header";
 import DashboardLayout from '../../components/layouts/DashboardLayout'
 import { useSelector, useDispatch } from 'react-redux'
 import Logs from '../time_logs/Logs'
@@ -24,8 +23,6 @@ const UserPage = ({match}) => {
 
     return (
         <DashboardLayout>
-            <Header />
-
             <Container className="mt-5" fluid>
                 <Row className="mt-5">
                     <Col className="mb-5 mb-xl-0" xl="12">

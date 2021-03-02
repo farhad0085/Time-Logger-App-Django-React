@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { updateTimeLog, loadSingleLog } from '../../store/actions/timeLogActions'
 import moment from 'moment';
 import DashboardLayout from '../../components/layouts/DashboardLayout';
-import Header from '../../components/Headers/Header';
 import {
     Col, Card, CardBody, Form, FormGroup, InputGroup, Row,
     InputGroupAddon, InputGroupText, Input, Button, Container
@@ -59,8 +58,6 @@ const EditLog = ({ match }) => {
 
     return (
         <DashboardLayout>
-            <Header />
-
             <Container className="mt-5" fluid>
                 <Row className="justify-content-md-center">
                     <Col lg="5" md="7">
