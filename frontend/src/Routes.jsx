@@ -21,8 +21,8 @@ const Routes = () => {
             <PrivateRoute path="/" exact component={HomePage} />
             <PrivateRoute path="/create-log" exact component={LogForm} />
             <PrivateRoute path="/log/update/:logId" exact component={EditLog} />
-            <PrivateRoute path="/admin/users" exact component={UsersPage} />
-            <PrivateRoute path="/admin/user/:userId" exact component={UserPage} />
+            <PrivateRoute path="/users" exact component={UsersPage} />
+            <PrivateRoute path="/user/:userId" exact component={UserPage} />
             <PrivateRoute path="/edit-profile" exact component={EditProfilePage} />
 
             {/* auth routes */}

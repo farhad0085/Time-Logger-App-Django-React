@@ -38,7 +38,7 @@ const User = ({ user }) => {
                     color="primary"
                     size="sm"
                     tag={Link}
-                    to={`/admin/user/${user.id}`}
+                    to={`/user/${user.id}`}
                 >
                     <i className="fa fa-eye"></i>
                 </Button>

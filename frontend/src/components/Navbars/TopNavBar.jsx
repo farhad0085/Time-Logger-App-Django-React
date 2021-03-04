@@ -2,7 +2,6 @@ import React from 'react';
 import { UncontrolledCollapse, Navbar, Row, Col, NavbarBrand, Nav, NavLink as Link, NavItem, Container } from 'reactstrap';
 import { NavLink } from "react-router-dom";
 import { useSelector } from 'react-redux'
-import { formatUserName } from "../../utils";
 
 const site_name = "Time Logger"
 
@@ -40,18 +39,18 @@ const TopNavBar = (props) => {
                     <i className="fa fa-clock" /> Create Log
                   </Link>
                 </NavItem>
-                <NavItem>
-                  <Link to="/edit-profile" tag={NavLink}>
-                    <i className="fa fa-user" /> {formatUserName(auth.user)}
-                  </Link>
-                </NavItem>
                 {auth.user.is_superuser && (
                   <NavItem>
-                    <Link to="/admin/users" tag={NavLink}>
+                    <Link to="/users" tag={NavLink}>
                       <i className="fa fa-users" /> Users
                     </Link>
                   </NavItem>
                 )}
+                <NavItem>
+                  <Link to="/edit-profile" tag={NavLink}>
+                    <i className="fa fa-user" /> Profile
+                  </Link>
+                </NavItem>
                 <NavItem>
                   <Link to="/logout" tag={NavLink}>
                     <i className="fas fa-sign-out-alt" /> Logout

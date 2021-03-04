@@ -30,7 +30,7 @@ const UserPage = ({match}) => {
                             <CardHeader className="border-0">
                                 <Row className="align-items-center">
                                     <div className="col">
-                                        <h3 className="mb-0"><Link to="/admin/users">Go Back</Link> User ID: {userId}</h3>
+                                        <h3 className="mb-0"><Link to="/users">Go Back</Link> User ID: {userId}</h3>
                                     </div>
                                     <MonthPicker />
                                 </Row>

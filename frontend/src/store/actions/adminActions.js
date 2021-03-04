@@ -19,12 +19,10 @@ export const loadUsers = () => (dispatch) => {
   axios
     .get("/time/users", { headers: getHeaders() })
     .then((res) => {
-      console.log(res.data);
       dispatch({ type: Types.USERS_LOADED, payload: res.data });
       dispatch({ type: Types.USERS_LOADING, payload: false });
     })
     .catch((error) => {
-      console.log(error.response);
       dispatch({ type: Types.USERS_LOADING, payload: false });
     });
 };
