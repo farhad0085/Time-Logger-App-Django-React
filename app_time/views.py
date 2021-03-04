@@ -8,7 +8,16 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.validators import ValidationError
 from django.contrib.auth.models import User
+from django.views import View
+from django.shortcuts import render
 import datetime
+
+
+class IndexView(View):
+    
+    def get(self, request):
+        return render(request, 'index.html')
+
 
 class LogTimeListAPIView(APIView):
 

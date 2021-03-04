@@ -52,7 +52,6 @@ const SignIn = ({ history }) => {
                                     <Input
                                         placeholder="Password"
                                         type="password"
-                                        autoComplete="new-password"
                                         value={password}
                                         onChange={e => setPassword(e.target.value)}
 
