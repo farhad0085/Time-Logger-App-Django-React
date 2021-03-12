@@ -1,3 +1,4 @@
+from time_logger_project.views import index
 from django.contrib import admin
 from django.urls import path, include
 
@@ -7,4 +8,5 @@ urlpatterns = [
     # api
     path('api/auth/', include('user.urls')),
     path('api/time/', include('app_time.urls')),
+    path('', index)
 ]

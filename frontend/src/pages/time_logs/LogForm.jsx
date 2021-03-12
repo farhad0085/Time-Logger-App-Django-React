@@ -44,7 +44,7 @@ const LogForm = () => {
                         <Card className="bg-secondary shadow border-0">
                             <CardBody className="px-lg-5 py-lg-5">
                                 <div className="text-center text-muted mb-4">
-                                    <h2>Log Time</h2>
+                                    <h2><Link to="/">Go Back</Link> Log Time</h2>
                                 </div>
                                 <Form role="form" onSubmit={submitHandler}>
                                     <FormGroup className="mb-3">

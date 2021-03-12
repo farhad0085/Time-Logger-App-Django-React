@@ -64,7 +64,7 @@ const EditLog = ({ match }) => {
                         <Card className="bg-secondary shadow border-0">
                             <CardBody className="px-lg-5 py-lg-5">
                                 <div className="text-center text-muted mb-4">
-                                    <h2>Edit Log</h2>
+                                    <h2><Link to="/">Go Back</Link> Edit Log</h2>
                                 </div>
                                 {timeLog.singleLogLoading ? (
                                     <h4 className="text-center">
