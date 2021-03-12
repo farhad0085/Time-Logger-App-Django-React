@@ -10,7 +10,7 @@ import UsersPage from "./pages/time_logs/admin/UsersPage";
 import EditProfilePage from "./pages/user/EditProfilePage";
 
 import HomePage from "./pages/HomePage";
-import NotFoundPage from "./pages/NotFound";
+import NotFoundPage from "./pages/NotFound/NotFound";
 import LogoutPage from "./pages/auth/Logout";
 import { useSelector } from 'react-redux'
 import UserPage from "./pages/user/UserPage";
