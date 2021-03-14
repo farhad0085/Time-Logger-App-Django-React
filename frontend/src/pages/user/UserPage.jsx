@@ -30,13 +30,13 @@ const UserPage = ({match}) => {
               <CardHeader className="border-0">
                 <Row className="align-items-center">
                   <div className="col">
-                    <h3 className="mb-0"><Link to="/users">Go Back</Link> User ID: {userId}</h3>
+                    <h3 className="mb-0"><Link to="/users">Go Back</Link> &raquo; User ID: {userId}</h3>
                   </div>
                   <MonthPicker />
                 </Row>
               </CardHeader>
 
-              {auth.user.is_superuser ? (
+              {auth.user.is_company_owner ? (
                 <Logs logs={timeLog.logs} loading={timeLog.loading} />
               ) : (
                 <h4 className="text-center pb-4" style={{color: 'red', fontWeight: 'bold'}}>You're not allowed in this page!</h4>

@@ -26,12 +26,12 @@ const UsersPage = (props) => {
               <CardHeader className="border-0">
                 <Row className="align-items-center">
                   <div className="col">
-                    <h3 className="mb-0"><Link to="/">Go Back</Link> Users</h3>
+                    <h3 className="mb-0"><Link to="/">Go Back</Link> &raquo; Users</h3>
                   </div>
                 </Row>
               </CardHeader>
                 
-              {auth.user.is_superuser ? (
+              {auth.user.is_company_owner ? (
                 <Users users={admin.users} loading={admin.loading} />
               ) : (
                 <h4 className="text-center pb-4" style={{color: 'red', fontWeight: 'bold'}}>You're not allowed in this page!</h4>

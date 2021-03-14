@@ -15,7 +15,7 @@ const AdminFooter = () => {
               to="/"
               rel="noopener noreferrer"
             >
-              Company Name
+              Akkrual
             </Link>
           </div>
         </Col>

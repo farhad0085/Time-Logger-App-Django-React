@@ -15,7 +15,7 @@ const AuthFooter = () => {
                   className="font-weight-bold ml-1"
                   to="/"
                 >
-                  Company Name
+                  Akkrual
                 </Link>
               </div>
             </Col>

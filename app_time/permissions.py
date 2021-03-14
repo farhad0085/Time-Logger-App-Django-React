@@ -11,8 +11,8 @@ class AdminOrOwnLog(permissions.BasePermission):
         return obj.created_by == request.user
 
 
-class IsAdminUser(permissions.BasePermission):
+class IsCompanyOwner(permissions.BasePermission):
     message = "You're not allowed to perform this action"
 
     def has_permission(self, request, view):
-        return request.user.is_superuser
+        return request.user.is_company_owner

@@ -34,18 +34,14 @@ const TopNavBar = (props) => {
           <Nav className="ml-auto" navbar>
             {auth.isAuthenticated ? (
               <>
-                <NavItem>
-                  <Link to="/create-log" tag={NavLink}>
-                    <i className="fa fa-clock" /> Create Log
-                  </Link>
-                </NavItem>
-                {auth.user.is_superuser && (
+                {!auth.user.is_company_owner && (
                   <NavItem>
-                    <Link to="/users" tag={NavLink}>
-                      <i className="fa fa-users" /> Users
+                    <Link to="/create-log" tag={NavLink}>
+                      <i className="fa fa-clock" /> Create Log
                     </Link>
                   </NavItem>
                 )}
+                
                 <NavItem>
                   <Link to="/edit-profile" tag={NavLink}>
                     <i className="fa fa-user" /> Profile
@@ -58,19 +54,19 @@ const TopNavBar = (props) => {
                 </NavItem>
               </>
             ) : (
-                <>
-                  <NavItem>
-                    <Link to="/login" tag={NavLink}>
-                      <i className="fa fa-user" /> Login
+              <>
+                <NavItem>
+                  <Link to="/login" tag={NavLink}>
+                    <i className="fa fa-user" /> Login
                     </Link>
-                  </NavItem>
-                  <NavItem>
-                    <Link to="/register" tag={NavLink}>
-                      <i className="fa fa-user" /> Register
+                </NavItem>
+                <NavItem>
+                  <Link to="/register" tag={NavLink}>
+                    <i className="fa fa-user" /> Register
                     </Link>
-                  </NavItem>
-                </>
-              )}
+                </NavItem>
+              </>
+            )}
           </Nav>
         </UncontrolledCollapse>
       </Container>

@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 const EditLog = ({ match }) => {
   const dispatch = useDispatch()
   const timeLog = useSelector(state => state.timeLog)
+  const auth = useSelector(state => state.auth)
   const todayDate = moment().format("YYYY-MM-DD");
 
   const logId = match.params.logId;
@@ -64,7 +65,7 @@ const EditLog = ({ match }) => {
             <Card className="bg-secondary shadow border-0">
               <CardBody className="px-lg-5 py-lg-5">
                 <div className="text-center text-muted mb-4">
-                  <h2><Link to="/">Go Back</Link> Edit Log</h2>
+                  <h2><Link to="/">Go Back</Link> &raquo; Edit Log</h2>
                 </div>
                 {timeLog.singleLogLoading ? (
                   <h4 className="text-center">
@@ -137,7 +138,7 @@ const EditLog = ({ match }) => {
                           />
                           <label className="custom-control-label" htmlFor="injuriNote">
                             Were there any injuries noted?
-                                                            </label>
+                          </label>
                         </div>
                         <div className="custom-control custom-control-alternative custom-checkbox mb-3">
                           <input
@@ -149,7 +150,20 @@ const EditLog = ({ match }) => {
                           />
                           <label className="custom-control-label" htmlFor="policyNote">
                             Were there any violation of company policy noted?
-                                                            </label>
+                          </label>
+                        </div>
+
+                        <div className="custom-control custom-control-alternative custom-checkbox mb-3">
+                          <input
+                            className="custom-control-input"
+                            disabled
+                            type="checkbox"
+                            id="companyName"
+                            checked
+                          />
+                          <label className="custom-control-label" htmlFor="companyName">
+                            Company: {auth.user.company}
+                          </label>
                         </div>
 
                         {timeLog.createLogError && (

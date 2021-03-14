@@ -1,5 +1,5 @@
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
-from app_time.permissions import IsAdminUser
+from app_time.permissions import IsCompanyOwner
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import *
@@ -59,13 +59,13 @@ class RegistrationView(RegisterView):
 
 
 class SingleUser(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated, IsCompanyOwner]
     serializer_class = UserAccountSerializer
     queryset = UserModel.objects.all()
 
     def get_permissions(self):
         if self.request.method == ["GET", "DELETE"]:
-            self.permission_classes = [IsAuthenticated, IsAdminUser]
+            self.permission_classes = [IsAuthenticated, IsCompanyOwner]
         elif self.request.method in ["PUT", "PATCH"]:
             self.permission_classes = [IsAuthenticated, AdminOrOwnProfile]
         return [permission() for permission in self.permission_classes]

@@ -2,7 +2,7 @@ from app_time.utils import format_time
 from rest_framework.response import Response
 from app_time.serializers import TimeLogSerializer
 from app_time.models import TimeLog
-from app_time.permissions import AdminOrOwnLog, IsAdminUser
+from app_time.permissions import AdminOrOwnLog, IsCompanyOwner
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -43,7 +43,7 @@ class LogTimeListAPIView(APIView):
         ).all()
 
         if created_by_filter:
-            if user.is_superuser:
+            if user.is_company_owner:
                 logs = TimeLog.objects.filter(
                     created_by=created_by_filter,
                     date__year=year_filter,
@@ -129,7 +129,7 @@ class LogTimeRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
 class UserDataWithTimeLog(APIView):
 
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated, IsCompanyOwner]
 
     def get(self, request):
         today = datetime.date.today()
@@ -137,6 +137,10 @@ class UserDataWithTimeLog(APIView):
 
         users = UserModel.objects.all()
         
+        if request.user.is_company_owner:
+            users = users.filter(company=request.user.company).exclude(is_company_owner=True)
+
+
         response_data = []
         for user in users:
             logs = TimeLog.objects.filter(created_by=user, date__range=[month_first_day, today]).all()
