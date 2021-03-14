@@ -7,9 +7,10 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.validators import ValidationError
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 import datetime
 
+UserModel = get_user_model()
 
 class LogTimeListAPIView(APIView):
 
@@ -63,6 +64,7 @@ class LogTimeCreateAPIView(APIView):
     def post(self, request):
         user = request.user
         data = request.data
+        data['company'] = user.company.id
         serializer = self.serializer(data=data)
         
         if serializer.is_valid(raise_exception=True):
@@ -133,7 +135,7 @@ class UserDataWithTimeLog(APIView):
         today = datetime.date.today()
         month_first_day = today.replace(day=1)
 
-        users = User.objects.all()
+        users = UserModel.objects.all()
         
         response_data = []
         for user in users:

@@ -1,7 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
 import datetime
+from django.contrib.auth import get_user_model
+
+UserModel = get_user_model()
 
 
 class TimeLog(models.Model):
@@ -11,8 +13,9 @@ class TimeLog(models.Model):
     injury_noted = models.BooleanField(default=False)
     policy_violation_noted = models.BooleanField(default=False)
     comment = models.TextField(blank=True)
+    company = models.ForeignKey('user.Company', on_delete=models.CASCADE, null=True)
     
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

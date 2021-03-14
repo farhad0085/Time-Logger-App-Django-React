@@ -9,8 +9,10 @@ from django.contrib.auth import authenticate
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authtoken.models import Token
-from django.contrib.auth.models import User
 from rest_auth.views import PasswordChangeView
+from django.contrib.auth import get_user_model
+
+UserModel = get_user_model()
 
 
 class LoginView(APIView):
@@ -33,7 +35,7 @@ class LoginView(APIView):
 
             token, _ = Token.objects.get_or_create(user=user)
 
-            response_data = UserSerializer(user).data
+            response_data = UserAccountSerializer(user).data
             response_data["token"] = token.key
             return Response(response_data, status=200)
 
@@ -45,7 +47,7 @@ class UserInfo(APIView):
 
     def get(self, request):
         user = request.user
-        serializer = UserSerializer(user)
+        serializer = UserAccountSerializer(user)
         return Response(serializer.data)
 
 
@@ -58,8 +60,8 @@ class RegistrationView(RegisterView):
 
 class SingleUser(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
-    serializer_class = UserSerializer
-    queryset = User.objects.all()
+    serializer_class = UserAccountSerializer
+    queryset = UserModel.objects.all()
 
     def get_permissions(self):
         if self.request.method == ["GET", "DELETE"]:

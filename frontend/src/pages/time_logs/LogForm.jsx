@@ -14,6 +14,7 @@ const LogForm = () => {
 
   const dispatch = useDispatch()
   const timeLog = useSelector(state => state.timeLog)
+  const auth = useSelector(state => state.auth)
   const todayDate = moment().format("YYYY-MM-DD");
 
   // states
@@ -105,7 +106,7 @@ const LogForm = () => {
                     />
                     <label className="custom-control-label" htmlFor="injuriNote">
                       Were there any injuries noted?
-                                        </label>
+                    </label>
                   </div>
                   <div className="custom-control custom-control-alternative custom-checkbox mb-3">
                     <input
@@ -117,7 +118,19 @@ const LogForm = () => {
                     />
                     <label className="custom-control-label" htmlFor="policyNote">
                       Were there any violation of company policy noted?
-                                        </label>
+                    </label>
+                  </div>
+                  <div className="custom-control custom-control-alternative custom-checkbox mb-3">
+                    <input
+                      className="custom-control-input"
+                      disabled
+                      type="checkbox"
+                      id="companyName"
+                      checked
+                    />
+                    <label className="custom-control-label" htmlFor="companyName">
+                      Company: {auth.user.company}
+                    </label>
                   </div>
 
                   {timeLog.createLogError && (

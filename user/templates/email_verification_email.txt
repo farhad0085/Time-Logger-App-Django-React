@@ -2,5 +2,3 @@ Hello {{name}},
 You've requested to verify your email.
 
 Your verification code: {{code}}
-
-MyDash.Ai

@@ -18,8 +18,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'user',
-    'app_time',
 
     # rest
     'rest_framework',
@@ -34,6 +32,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     "rest_auth",
     "rest_auth.registration",
+
+    # own apps
+    'app_time',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +127,4 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 # rest auth password change settings
 LOGOUT_ON_PASSWORD_CHANGE = False
 OLD_PASSWORD_FIELD_ENABLED = True
+AUTH_USER_MODEL = 'user.UserAccount'

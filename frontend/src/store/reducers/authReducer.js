@@ -10,13 +10,12 @@ const initialState = {
     email: "",
     first_name: "",
     last_name: "",
-    profile: {
-      address: "",
-      phone: "",
-      city: "",
-      country: "",
-      postal_code: "",
-    },
+    address: "",
+    phone: "",
+    city: "",
+    country: "",
+    postal_code: "",
+    company: ""
   },
 };
 

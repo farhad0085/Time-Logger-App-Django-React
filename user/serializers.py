@@ -1,44 +1,27 @@
-from .models import UserProfile
 from rest_framework import serializers
-from django.contrib.auth.models import User
 from rest_auth.registration.serializers import RegisterSerializer
 from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
 from rest_auth.serializers import PasswordChangeSerializer
+from django.contrib.auth import get_user_model
+
+UserModel = get_user_model()
+
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField()
 
 
-class UserProfileSerializer(serializers.ModelSerializer):
+class UserAccountSerializer(serializers.ModelSerializer):
 
+    company = serializers.SerializerMethodField('get_company_name')
     class Meta:
-        model = UserProfile
-        fields = "__all__"
-        read_only_fields = ['user']
-
-
-class UserSerializer(serializers.ModelSerializer):
-
-    profile = UserProfileSerializer()
-
-    class Meta:
-        model = User
+        model = UserModel
         exclude = ['password', 'user_permissions', 'is_staff', 'groups']
 
-    def update(self, instance, validated_data):
-        for attr, value in validated_data.items():
-            # save everything other than profile
-            if attr != "profile":
-                setattr(instance, attr, value)
-        
-            if attr == "profile":
-                for profile_attr, profile_value in value.items():
-                    setattr(instance.profile, profile_attr, profile_value)
-
-        instance.save()
-        return instance
+    def get_company_name(self, object):
+        return object.company.name
 
 class RegistrationSerializer(RegisterSerializer):
 
@@ -56,7 +39,7 @@ class RegistrationSerializer(RegisterSerializer):
     )
 
     def custom_signup(self, request, user):
-        user.profile.phone = self.validated_data.get('phone')
+        user.phone = self.validated_data.get('phone')
         user.save()
 
 
@@ -88,10 +71,10 @@ class PasswordResetSerializer(serializers.Serializer):
         if not self.reset_form.is_valid():
             raise serializers.ValidationError(self.reset_form.errors)
         
-        if not User.objects.filter(email=value).exists():
+        if not UserModel.objects.filter(email=value).exists():
             raise serializers.ValidationError('No account found for that email address')
         
-        self.user = User.objects.get(email=value)
+        self.user = UserModel.objects.get(email=value)
         
         return value
 
