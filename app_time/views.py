@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.validators import ValidationError
 from django.contrib.auth import get_user_model
+from user.models import Company
 import datetime
 
 UserModel = get_user_model()
@@ -152,3 +153,278 @@ class UserDataWithTimeLog(APIView):
             })
 
         return Response(response_data, 200)
+
+
+class LogReportView(APIView):
+    """Report for date range"""
+
+    permission_classes = [IsAuthenticated, IsCompanyOwner]
+
+    def get_dates(self, start_date, end_date):
+        days_difference = (end_date - start_date).days
+        dates = [date for date in [(end_date - datetime.timedelta(days=i)) for i in range(days_difference + 1)]]
+        return list(reversed(dates))
+
+
+    def post(self, request):
+        data = request.data
+        user = request.user
+
+        start_date = data.get("start_date", datetime.date.today().replace(day=1))
+        end_date = data.get("end_date", datetime.date.today())
+
+        if user.is_superuser:
+            company = Company.objects.filter(id=data.get("company")).first()
+        else:
+            company = user.company
+
+        if user.is_superuser and not company:
+            # dummy data if no company selected
+            data = {
+                "date_range": f"{start_date.strftime('%d %B, %Y')} - {end_date.strftime('%d %B, %Y')}",
+                "data": [
+                    {
+                        "company": "xyz",
+                        "data": [
+                            {
+                                "user": "user1",
+                                "total_time": "50 hours",
+                                "data": [
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                ]
+                            },
+                            {
+                                "user": "user1",
+                                "total_time": "50 hours",
+                                "data": [
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                ]
+                            },
+                            {
+                                "user": "user1",
+                                "total_time": "50 hours",
+                                "data": [
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+                    {
+                        "company": "xyz",
+                        "data": [
+                            {
+                                "user": "user1",
+                                "total_time": "50 hours",
+                                "data": [
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                ]
+                            },
+                            {
+                                "user": "user1",
+                                "total_time": "50 hours",
+                                "data": [
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                ]
+                            },
+                            {
+                                "user": "user1",
+                                "total_time": "50 hours",
+                                "data": [
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+                    {
+                        "company": "xyz",
+                        "data": [
+                            {
+                                "user": "user1",
+                                "total_time": "50 hours",
+                                "data": [
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                ]
+                            },
+                            {
+                                "user": "user1",
+                                "total_time": "50 hours",
+                                "data": [
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                ]
+                            },
+                            {
+                                "user": "user1",
+                                "total_time": "50 hours",
+                                "data": [
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                    {
+                                        "date": "1 march, 2021",
+                                        "time": "8 hour"
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+                ]
+            }
+            return Response(data)
+
+
+        # dummy data if a company is selected
+        company_users = company.useraccount_set.all().exclude(is_company_owner=True)
+        all_dates = self.get_dates(start_date, end_date)
+        
+        data = {
+            "date_range": f"{start_date.strftime('%d %B, %Y')} - {end_date.strftime('%d %B, %Y')}",
+            "company_name": company.name,
+            "data": [
+                
+            ]
+        }
+
+        for c_user in company_users:
+            logs = TimeLog.objects.filter(created_by=c_user, date__range=[start_date, end_date]).all()
+            user_data = {
+                "user": c_user.get_full_name() or c_user.username,
+                "data": [],
+                "total_time": format_time(sum(log.duration for log in logs))
+            }
+            for date in all_dates:
+                user_data["data"].append({
+                    "date": date.strftime("%d %B, %Y"),
+                    "time": format_time(sum(log.duration for log in logs.filter(date=date)))
+                })
+            data["data"].append(user_data)
+        
+        return Response(data)

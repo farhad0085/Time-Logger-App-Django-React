@@ -9,6 +9,11 @@ const initialState = {
     singleLog: {},
     singleLogLoadError: "",
     singleLogLoading: false,
+    logReport: {
+      error: "",
+      data: {},
+      loading: false,
+    }
 }
 
 function timeLogReducer(state = initialState, action) {
@@ -60,6 +65,35 @@ function timeLogReducer(state = initialState, action) {
                 ...state,
                 singleLogLoading: action.payload
             }
+        }
+        case Types.LOG_REPORT_ERROR_OCCURED: {
+          return {
+            ...state,
+            logReport: {
+              loading: false,
+              error: action.payload,
+              data: {}
+            }
+          }
+        }
+        case Types.LOG_REPORT_LOADED: {
+          return {
+            ...state,
+            logReport: {
+              loading: false,
+              error: "",
+              data: action.payload
+            }
+          }
+        }
+        case Types.LOG_REPORT_LOADING: {
+          return {
+            ...state,
+            logReport: {
+              ...state.logReport,
+              loading: action.payload
+            }
+          }
         }
         default: return state
     }

@@ -7,4 +7,5 @@ urlpatterns = [
     path('logs/create/', LogTimeCreateAPIView.as_view()),
     path('logs/<int:pk>/', LogTimeRetrieveUpdateDestroyAPIView.as_view()),
     path('users/', UserDataWithTimeLog.as_view()),
+    path('log/report/', LogReportView.as_view()),
 ]

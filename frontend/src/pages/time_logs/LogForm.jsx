@@ -47,7 +47,10 @@ const LogForm = () => {
                 <div className="text-center text-muted mb-4">
                   <h2><Link to="/">Go Back</Link> &raquo; Log Time</h2>
                 </div>
-                <Form role="form" onSubmit={submitHandler}>
+                {auth.user.is_company_owner ? (
+                  <h4 className="text-center pb-4" style={{color: 'red', fontWeight: 'bold'}}>You're not allowed in this page!</h4>  
+                ): (
+                <Form onSubmit={submitHandler}>
                   <FormGroup className="mb-3">
                     <InputGroup className="input-group-alternative">
                       <InputGroupAddon addonType="prepend">
@@ -152,6 +155,7 @@ const LogForm = () => {
                     </Button>
                   </div>
                 </Form>
+                )}
               </CardBody>
             </Card>
           </Col>

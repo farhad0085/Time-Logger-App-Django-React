@@ -34,10 +34,16 @@ const TopNavBar = (props) => {
           <Nav className="ml-auto" navbar>
             {auth.isAuthenticated ? (
               <>
-                {!auth.user.is_company_owner && (
+                {!auth.user.is_company_owner ? (
                   <NavItem>
                     <Link to="/create-log" tag={NavLink}>
                       <i className="fa fa-clock" /> Create Log
+                    </Link>
+                  </NavItem>
+                ) : (
+                  <NavItem>
+                    <Link to="/report" tag={NavLink}>
+                      <i className="fa fa-file" /> Report
                     </Link>
                   </NavItem>
                 )}

@@ -118,3 +118,10 @@ export const loadSingleLog = (logId) => (dispatch) => {
       dispatch({ type: Types.TIME_LOG_LOADING, payload: false });
     });
 };
+
+
+export const getLogReport = () => dispatch => {
+  // report download
+  dispatch({type: Types.LOG_REPORT_LOADING, payload: true})
+
+}
