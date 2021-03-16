@@ -124,4 +124,13 @@ export const getLogReport = () => dispatch => {
   // report download
   dispatch({type: Types.LOG_REPORT_LOADING, payload: true})
 
+  axios.post("/time/log/report/", {}, {headers: getHeaders()})
+  .then(res => {
+    console.log(res.data);
+    dispatch({type: Types.LOG_REPORT_LOADING, payload: false})
+  })
+  .catch(error => {
+    console.log(error.response);
+    dispatch({type: Types.LOG_REPORT_LOADING, payload: false})
+  })
 }

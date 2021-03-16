@@ -197,16 +197,39 @@ class LogReportView(APIView):
                 
                 for c_user in company_users:
                     logs = TimeLog.objects.filter(created_by=c_user, date__range=[start_date, end_date]).all()
+                    
+                    total_time = 0
+                    total_injury_noted = 0
+                    total_policy_violation_noted = 0
+                    for l in logs:
+                        total_time += l.duration
+                        total_injury_noted += int(l.injury_noted)
+                        total_policy_violation_noted += int(l.policy_violation_noted)
+
                     user_data = {
                         "user": c_user.get_full_name() or c_user.username,
                         "data": [],
-                        "total_time": format_time(sum(log.duration for log in logs))
+                        "total": {
+                            "time": format_time(total_time),
+                            "injury_noted": total_injury_noted,
+                            "policy_violation_noted": total_policy_violation_noted
+                        }
                     }
                     
                     for date in all_dates:
+                        day_time = 0
+                        day_injury_noted = 0
+                        day_policy_violation_noted = 0
+                        for l in logs.filter(date=date):
+                            day_time += l.duration
+                            day_injury_noted += int(l.injury_noted)
+                            day_policy_violation_noted += int(l.policy_violation_noted)
+
                         user_data["data"].append({
                             "date": date.strftime("%d %B, %Y"),
-                            "time": format_time(sum(log.duration for log in logs.filter(date=date)))
+                            "time": format_time(day_time),
+                            "injury_noted": bool(day_injury_noted),
+                            "policy_violation_noted": bool(day_policy_violation_noted)
                         })
                     company_data["data"].append(user_data)
                 
@@ -226,16 +249,39 @@ class LogReportView(APIView):
 
         for c_user in company_users:
             logs = TimeLog.objects.filter(created_by=c_user, date__range=[start_date, end_date]).all()
+
+            total_time = 0
+            total_injury_noted = 0
+            total_policy_violation_noted = 0
+            for l in logs:
+                total_time += l.duration
+                total_injury_noted += int(l.injury_noted)
+                total_policy_violation_noted += int(l.policy_violation_noted)
+
             user_data = {
                 "user": c_user.get_full_name() or c_user.username,
                 "data": [],
-                "total_time": format_time(sum(log.duration for log in logs))
+                "total": {
+                    "time": format_time(total_time),
+                    "injury_noted": total_injury_noted,
+                    "policy_violation_noted": total_policy_violation_noted
+                }
             }
             
             for date in all_dates:
+                day_time = 0
+                day_injury_noted = 0
+                day_policy_violation_noted = 0
+                for l in logs.filter(date=date):
+                    day_time += l.duration
+                    day_injury_noted += int(l.injury_noted)
+                    day_policy_violation_noted += int(l.policy_violation_noted)
+
                 user_data["data"].append({
                     "date": date.strftime("%d %B, %Y"),
-                    "time": format_time(sum(log.duration for log in logs.filter(date=date)))
+                    "time": format_time(day_time),
+                    "injury_noted": bool(day_injury_noted),
+                    "policy_violation_noted": bool(day_policy_violation_noted)
                 })
             data["data"].append(user_data)
         
