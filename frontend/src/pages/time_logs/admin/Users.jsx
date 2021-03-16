@@ -5,7 +5,6 @@ import User from './User';
 
 
 const Users = ({ users, loading }) => {
-  console.log(users);
   return (
     <div>
       {loading ? <h4 className="text-center pb-3">Loading...</h4> : (

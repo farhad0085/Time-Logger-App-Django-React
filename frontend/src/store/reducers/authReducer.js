@@ -17,6 +17,11 @@ const initialState = {
     postal_code: "",
     company: ""
   },
+  company: {
+    loading: false,
+    data: [],
+    error: ""
+  }
 };
 
 function authReducer(state = initialState, action) {
@@ -59,6 +64,35 @@ function authReducer(state = initialState, action) {
         ...state,
         isAuthenticated: false,
       };
+    }
+    case Types.COMPANY_DATA_LOADING: {
+      return {
+        ...state,
+        company: {
+          ...state.company,
+          loading: action.payload
+        }
+      }
+    }
+    case Types.COMPANY_DATA_LOADED: {
+      return {
+        ...state,
+        company: {
+          data: action.payload,
+          loading: false,
+          error: ""
+        }
+      }
+    }
+    case Types.COMPANY_DATA_LOAD_ERROR: {
+      return {
+        ...state,
+        company: {
+          data: [],
+          loading: false,
+          error: action.payload
+        }
+      }
     }
     default:
       return state;

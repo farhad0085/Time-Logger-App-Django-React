@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { NavItem, NavLink, Nav, Container, Row, Col } from "reactstrap";
+import classes from './styles.module.scss'
 
 const AuthFooter = () => {
   return (
@@ -22,12 +23,12 @@ const AuthFooter = () => {
             <Col xl="6">
               <Nav className="nav-footer justify-content-center justify-content-xl-end">
                 <NavItem>
-                  <NavLink to="/">
+                  <NavLink to="/" className={classes.footerNav}>
                     Home
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink to='/about'>
+                  <NavLink to='/about' className={classes.footerNav}>
                     About Us
                   </NavLink>
                 </NavItem>

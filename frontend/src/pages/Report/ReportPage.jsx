@@ -1,22 +1,16 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Card, CardHeader, Container, Row, Col } from "reactstrap";
 import DashboardLayout from '../../components/layouts/DashboardLayout'
-import { useSelector, useDispatch } from 'react-redux'
-import Logs from '../time_logs/Logs'
-import { getLogReport } from '../../store/actions/timeLogActions';
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
+import ReportFilterForm from './ReportFilterForm';
+import ReportResult from './ReportResult';
 
 
 const ReportPage = () => {
 
-  const dispatch = useDispatch()
   const auth = useSelector(state => state.auth)
   const timeLog = useSelector(state => state.timeLog)
-
-  useEffect(() => {
-    dispatch(getLogReport())
-    // eslint-disable-next-line
-  }, [])
 
   return (
     <DashboardLayout>
@@ -33,7 +27,10 @@ const ReportPage = () => {
               </CardHeader>
 
               {auth.user.is_company_owner ? (
-                <Logs logs={timeLog.logs} loading={timeLog.loading} />
+                <>
+                  <ReportFilterForm />
+                  {Object.keys(timeLog.logReport.data) > 0 && <ReportResult />}
+                </>
               ) : (
                 <h4 className="text-center pb-4" style={{color: 'red', fontWeight: 'bold'}}>You're not allowed in this page!</h4>
               )}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import classes from './styles.module.scss'
 
 import { Row, Col, Nav, NavItem, NavLink } from "reactstrap";
 
@@ -24,6 +25,7 @@ const AdminFooter = () => {
           <Nav className="nav-footer justify-content-center justify-content-xl-end">
             <NavItem>
               <NavLink
+                className={classes.footerNav}
                 to="/"
                 rel="noopener noreferrer"
               >
@@ -35,6 +37,7 @@ const AdminFooter = () => {
               <NavLink
                 to="/about"
                 rel="noopener noreferrer"
+                className={classes.footerNav}
               >
                 About Us
               </NavLink>

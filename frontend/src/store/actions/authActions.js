@@ -9,7 +9,7 @@ export const login = (loginCreds, history) => (dispatch) => {
   axios
     .post("/auth/login/", loginCreds)
     .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         localStorage.setItem("timeLoggerUserToken", res.data.token);
       dispatch({ type: Types.USER_LOGGED_IN });
       history.push("/");
@@ -68,3 +68,19 @@ export const loadUserInfo = () => (dispatch) => {
       dispatch({ type: Types.AUTH_LOADING, payload: false });
     });
 };
+
+
+export const loadAllCompanies = () => dispatch => {
+  dispatch({type: Types.COMPANY_DATA_LOADING, payload: true})
+  axios.get("/auth/companies/", {headers: getHeaders()})
+  .then(res => {
+    // console.log(res.data);
+    dispatch({type: Types.COMPANY_DATA_LOADED, payload: res.data})
+    dispatch({type: Types.COMPANY_DATA_LOADING, payload: false})
+  })
+  .catch(error => {
+    // console.log(error.response.data);
+    dispatch({type: Types.COMPANY_DATA_LOAD_ERROR, payload: "Error loading company's data"})
+    dispatch({type: Types.COMPANY_DATA_LOADING, payload: false})
+  })
+}

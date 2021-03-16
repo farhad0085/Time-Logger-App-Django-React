@@ -11,6 +11,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authtoken.models import Token
 from rest_auth.views import PasswordChangeView
 from django.contrib.auth import get_user_model
+from .models import Company
 
 UserModel = get_user_model()
 
@@ -73,3 +74,12 @@ class SingleUser(RetrieveUpdateDestroyAPIView):
 
 class UpdatePasswordView(PasswordChangeView):
     serializer_class = ChangePasswordSerializer
+
+
+class CompanyView(APIView):
+    permission_classes = [IsAuthenticated, IsCompanyOwner]
+
+    def get(self, request):
+        companies = Company.objects.all()
+        companies_data = [{"id": item.id, "name": item.name} for item in companies]
+        return Response(companies_data)

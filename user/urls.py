@@ -5,6 +5,7 @@ from rest_auth.views import PasswordResetConfirmView
 
 urlpatterns = [
     path('user/me/', UserInfo.as_view()),
+    path('companies/', CompanyView.as_view()),
     path('user/<pk>/', SingleUser.as_view()),
     path('login/', LoginView.as_view()),
     path('register/', RegistrationView.as_view()),
