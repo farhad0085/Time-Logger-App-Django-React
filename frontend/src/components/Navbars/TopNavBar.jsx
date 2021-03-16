@@ -11,7 +11,7 @@ const TopNavBar = (props) => {
   return (
     <Navbar color="primary" dark expand="md">
       <Container fluid>
-        <NavbarBrand to="/" tag={NavLink}>{site_name}</NavbarBrand>
+        <NavbarBrand to="/" exact tag={NavLink}>{site_name}</NavbarBrand>
         <button className="navbar-toggler" id="navbar-collapse-main">
           <span className="navbar-toggler-icon" />
         </button>

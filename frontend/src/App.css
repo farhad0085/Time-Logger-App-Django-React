@@ -1,0 +1,16 @@
+select, option:checked {
+  font-weight: bold;
+}
+
+select, option {
+  color: black;
+}
+
+select, option:disabled {
+  color: rgb(185, 177, 177);
+}
+
+.navbar-brand.active, .nav-link.active {
+  font-weight: bold;
+  color: white !important;
+}

@@ -94,7 +94,6 @@ const ReportFilterForm = () => {
                 </Col>
               </Row>
               <div className="text-center">
-                {console.log(timeLog)}
                 <Button disabled={timeLog.logReport.loading} className="my-1" color="primary" type="submit">
                   {timeLog.logReport.loading ? "Please wait..." : "Get Report"}
                 </Button>
