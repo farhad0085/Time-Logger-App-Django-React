@@ -10,15 +10,16 @@ const ReportFilterForm = () => {
   const timeLog = useSelector(state => state.timeLog)
   const auth = useSelector(state => state.auth)
   const todayDate = moment().format("YYYY-MM-DD");
+  const monthFirstDate = moment().format("YYYY-MM-01");
 
   // states
-  const [startDate, setStartDate] = useState(todayDate)
-  const [endDate, setEndDate] = useState(todayDate)
+  const [start_date, setStartDate] = useState(monthFirstDate)
+  const [end_date, setEndDate] = useState(todayDate)
   const [company, setCompany] = useState(0)
 
   const submitHandler = event => {
     event.preventDefault()
-    dispatch(getLogReport())
+    dispatch(getLogReport({start_date, end_date, company}))
   }
 
   useEffect(() => {
@@ -34,7 +35,7 @@ const ReportFilterForm = () => {
   }, [auth.company])
 
   return (
-    <Row className="justify-content-md-center mb-8">
+    <Row className="justify-content-md-center mb-5">
       <Col lg="5" md="7">
         <Card className="bg-secondary shadow border-0">
           <CardBody>
@@ -47,21 +48,20 @@ const ReportFilterForm = () => {
                       placeholder="Start Date"
                       id="startDate"
                       type="date"
-                      max={endDate}
-                      value={startDate}
+                      value={start_date}
                       onChange={e => setStartDate(e.target.value)}
                     />
                   </FormGroup>
                 </Col>
                 <Col lg="6">
                   <FormGroup className="mb-3">
-                    <Label htmlFor={"endDate"} text={"Start Date"} />
+                    <Label htmlFor={"endDate"} text={"End Date"} />
                     <Input
                       placeholder="End Date"
                       id="endDate"
                       type="date"
                       max={moment().format("YYYY-MM-DD")}
-                      value={endDate}
+                      value={end_date}
                       onChange={e => setEndDate(e.target.value)}
                     />
                   </FormGroup>
@@ -75,7 +75,7 @@ const ReportFilterForm = () => {
                       <>
                         {auth.company.error ? <p><small>{auth.company.error}</small></p> : (
                           <Input type="select" value={company} onChange={e => setCompany(e.target.value)}>
-                            <option disabled={!auth.user.is_superuser}>Select Company</option>
+                            <option value={0} disabled={!auth.user.is_superuser}>Select Company</option>
                             {auth.company.data.map(item => (
                               <option
                                 value={item.id}

@@ -120,17 +120,19 @@ export const loadSingleLog = (logId) => (dispatch) => {
 };
 
 
-export const getLogReport = () => dispatch => {
+export const getLogReport = (filterData) => dispatch => {
   // report download
   dispatch({type: Types.LOG_REPORT_LOADING, payload: true})
 
-  axios.post("/time/log/report/", {}, {headers: getHeaders()})
+  axios.post("/time/log/report/", filterData, {headers: getHeaders()})
   .then(res => {
-    console.log(res.data);
+    // console.log(res.data);
+    dispatch({type: Types.LOG_REPORT_LOADED, payload: res.data})
     dispatch({type: Types.LOG_REPORT_LOADING, payload: false})
   })
   .catch(error => {
-    console.log(error.response);
+    // console.log(error.response);
     dispatch({type: Types.LOG_REPORT_LOADING, payload: false})
+    dispatch({type: Types.LOG_REPORT_LOAD_ERROR, payload: "Failed to get report"})
   })
 }

@@ -10,6 +10,11 @@ select, option:disabled {
   color: rgb(185, 177, 177);
 }
 
+
+.navbar-brand{
+  font-weight: bold;
+}
+
 .navbar-brand.active, .nav-link.active {
   font-weight: bold;
   color: white !important;

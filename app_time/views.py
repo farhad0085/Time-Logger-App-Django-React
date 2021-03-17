@@ -170,8 +170,15 @@ class LogReportView(APIView):
         data = request.data
         user = request.user
 
-        start_date = data.get("start_date", datetime.date.today().replace(day=1))
-        end_date = data.get("end_date", datetime.date.today())
+        start_date = data.get("start_date", datetime.date.today().replace(day=1).strftime("%Y-%m-%d"))
+        end_date = data.get("end_date", datetime.date.today().strftime("%Y-%m-%d"))
+        
+        start_date = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+        end_date = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+
+        if start_date > end_date:
+            start_date, end_date = end_date, start_date
+
         all_dates = self.get_dates(start_date, end_date)
 
         if user.is_superuser:
@@ -181,10 +188,7 @@ class LogReportView(APIView):
 
         if user.is_superuser and not company:
             # data if no company selected
-            data = {
-                "date_range": f"{start_date.strftime('%d %B, %Y')} - {end_date.strftime('%d %B, %Y')}",
-                "data": []
-            }
+            data = []
             all_companies = Company.objects.all()
 
 
@@ -192,6 +196,7 @@ class LogReportView(APIView):
                 company_users = single_company.useraccount_set.all().exclude(is_company_owner=True)
                 company_data = {
                     "company": single_company.name,
+                    "date_range": f"{start_date.strftime('%d %B, %Y')} - {end_date.strftime('%d %B, %Y')}",
                     "data": []
                 }
                 
@@ -233,7 +238,7 @@ class LogReportView(APIView):
                         })
                     company_data["data"].append(user_data)
                 
-                data["data"].append(company_data)
+                data.append(company_data)
 
             return Response(data)
 
@@ -243,7 +248,7 @@ class LogReportView(APIView):
         
         data = {
             "date_range": f"{start_date.strftime('%d %B, %Y')} - {end_date.strftime('%d %B, %Y')}",
-            "company_name": company.name,
+            "company": company.name,
             "data": []
         }
 
@@ -285,4 +290,4 @@ class LogReportView(APIView):
                 })
             data["data"].append(user_data)
         
-        return Response(data)
+        return Response([data])

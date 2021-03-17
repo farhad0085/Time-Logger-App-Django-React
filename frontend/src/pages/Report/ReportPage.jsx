@@ -10,7 +10,6 @@ import ReportResult from './ReportResult';
 const ReportPage = () => {
 
   const auth = useSelector(state => state.auth)
-  const timeLog = useSelector(state => state.timeLog)
 
   return (
     <DashboardLayout>
@@ -29,7 +28,7 @@ const ReportPage = () => {
               {auth.user.is_company_owner ? (
                 <>
                   <ReportFilterForm />
-                  {Object.keys(timeLog.logReport.data) > 0 && <ReportResult />}
+                  <ReportResult />
                 </>
               ) : (
                 <h4 className="text-center pb-4" style={{color: 'red', fontWeight: 'bold'}}>You're not allowed in this page!</h4>

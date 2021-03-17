@@ -66,13 +66,12 @@ function timeLogReducer(state = initialState, action) {
                 singleLogLoading: action.payload
             }
         }
-        case Types.LOG_REPORT_ERROR_OCCURED: {
+        case Types.LOG_REPORT_LOADING: {
           return {
             ...state,
             logReport: {
-              loading: false,
-              error: action.payload,
-              data: {}
+              ...state.logReport,
+              loading: action.payload
             }
           }
         }
@@ -86,12 +85,13 @@ function timeLogReducer(state = initialState, action) {
             }
           }
         }
-        case Types.LOG_REPORT_LOADING: {
+        case Types.LOG_REPORT_LOAD_ERROR: {
           return {
             ...state,
             logReport: {
-              ...state.logReport,
-              loading: action.payload
+              loading: false,
+              error: action.payload,
+              data: {}
             }
           }
         }
