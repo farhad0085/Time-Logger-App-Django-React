@@ -75,7 +75,7 @@ const SignIn = ({ history }) => {
               className="text-light"
               to="/forget-password"
             >
-              Forgot password?
+              Forgot password
             </Link>
           </Col>
           <Col className="text-right" xs="6">

@@ -1,20 +1,24 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { requestResetPassword } from '../../store/actions/forgetPasswordActions'
+import { resetPassword } from '../../store/actions/forgetPasswordActions'
 import AuthLayout from '../../components/layouts/AuthLayout'
 import { Button, Card, CardBody, FormGroup, Form, Input, InputGroupAddon, InputGroupText, InputGroup, Row, Col } from "reactstrap";
 import { Link } from 'react-router-dom'
 
-const ForgetPasswordRequest = () => {
+
+const ResetPasswordPage = (props) => {
 
   const dispatch = useDispatch()
-  const forgetPassword = useSelector(state => state.forgetPassword)
 
-  const [email, setEmail] = useState("")
+  const [new_password1, setPassword1] = useState("");
+  const [new_password2, setPassword2] = useState("");
+  const {uid, token} = props.match.params;
+  
+  const forgetPassword = useSelector(state => state.forgetPassword)
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(requestResetPassword(email));
+    dispatch(resetPassword({uid, token, new_password1, new_password2}));
   };
 
   return (
@@ -31,14 +35,32 @@ const ForgetPasswordRequest = () => {
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
-                      <i className="far fa-envelope" />
+                      <i className="ni ni-lock-circle-open" />
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
-                    placeholder="Email"
-                    type="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    placeholder="New Password"
+                    type="password"
+                    autoComplete='new-password'
+                    value={new_password1}
+                    onChange={e => setPassword1(e.target.value)}
+                  />
+                </InputGroup>
+              </FormGroup>
+
+              <FormGroup className="mb-3">
+                <InputGroup className="input-group-alternative">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="ni ni-lock-circle-open" />
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input
+                    placeholder="Confirm Password"
+                    type="password"
+                    autoComplete='new-password'
+                    value={new_password2}
+                    onChange={e => setPassword2(e.target.value)}
                   />
                 </InputGroup>
               </FormGroup>
@@ -80,4 +102,4 @@ const ForgetPasswordRequest = () => {
 }
 
 
-export default ForgetPasswordRequest
+export default ResetPasswordPage
