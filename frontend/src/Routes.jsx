@@ -15,6 +15,7 @@ import LogoutPage from "./pages/auth/Logout";
 import { useSelector } from 'react-redux'
 import UserPage from "./pages/user/UserPage";
 import ReportPage from "./pages/Report/ReportPage";
+import ForgetPasswordRequest from "./pages/auth/ForgetPasswordRequest";
 
 
 const Routes = () => {
@@ -32,6 +33,7 @@ const Routes = () => {
       {/* auth routes */}
       <GuestRoute exact path="/login" component={LoginPage} />
       <GuestRoute exact path="/register" component={RegisterPage} />
+      <GuestRoute exact path="/forget-password" component={ForgetPasswordRequest} />
 
       <Route exact path="/logout" component={LogoutPage} />
       <Route component={NotFoundPage} />

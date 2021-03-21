@@ -56,7 +56,7 @@ class PasswordResetSerializer(serializers.Serializer):
 
         extra_email_context = {
             "DEVELOPMENT": settings.ENVIRONMENT == 'development',
-            "user_name": self.user.user_profile.name or self.user.username
+            "user_name": self.user.get_full_name() or self.user.username
         }
         return {
             'subject_template_name': 'reset-password-subject.txt',
