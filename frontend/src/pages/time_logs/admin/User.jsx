@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from 'reactstrap'
 import { deleteUser } from "../../../store/actions/adminActions";
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { Link } from 'react-router-dom';
@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 const User = ({ user }) => {
 
   const dispatch = useDispatch()
+  const auth = useSelector(state => state.auth)
 
   const deleteHandle = userId => {
     confirmAlert({
@@ -33,6 +34,9 @@ const User = ({ user }) => {
       <th className="text-center">{user.username}</th>
       <td className="text-center">{user.email}</td>
       <td className="text-center">{user.duration}</td>
+      {auth.user.is_superuser && (
+        <td className="text-center">{user.company}</td>
+      )}
       <td className="text-center">
         <Button
           color="primary"

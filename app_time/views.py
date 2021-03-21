@@ -138,7 +138,7 @@ class UserDataWithTimeLog(APIView):
 
         users = UserModel.objects.all()
         
-        if request.user.is_company_owner:
+        if request.user.is_company_owner and not request.user.is_superuser:
             users = users.filter(company=request.user.company).exclude(is_company_owner=True)
 
 
@@ -149,7 +149,8 @@ class UserDataWithTimeLog(APIView):
                 "id": user.id,
                 "username": user.username,
                 "email": user.email,
-                "duration": format_time(sum(log.duration for log in logs))
+                "duration": format_time(sum(log.duration for log in logs)),
+                "company": user.company.name
             })
 
         return Response(response_data, 200)

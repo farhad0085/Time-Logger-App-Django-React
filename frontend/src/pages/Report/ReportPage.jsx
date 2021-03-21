@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Card, CardHeader, Container, Row, Col } from "reactstrap";
 import DashboardLayout from '../../components/layouts/DashboardLayout'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom';
 import ReportFilterForm from './ReportFilterForm';
 import ReportResult from './ReportResult';
+import { LOG_REPORT_LOAD_ERROR } from '../../store/actions/actionTypes';
 
 
 const ReportPage = () => {
 
   const auth = useSelector(state => state.auth)
+  const dispatch = useDispatch()
+  
+  useEffect(() => {
+    // remove previously loaded report or errors
+    dispatch({type: LOG_REPORT_LOAD_ERROR, payload: ""})
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <DashboardLayout>
