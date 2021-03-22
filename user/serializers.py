@@ -2,9 +2,11 @@ from rest_framework import serializers
 from rest_auth.registration.serializers import RegisterSerializer
 from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
-from rest_auth.serializers import PasswordChangeSerializer
 from django.contrib.auth import get_user_model
-from rest_auth.serializers import PasswordResetConfirmSerializer as BasePasswordResetConfirmSerializer
+from rest_auth.serializers import (
+    PasswordResetConfirmSerializer as BasePasswordResetConfirmSerializer,
+    PasswordChangeSerializer
+)
 
 UserModel = get_user_model()
 
@@ -115,7 +117,7 @@ class ChangePasswordSerializer(PasswordChangeSerializer):
         max_length=128,
         error_messages={
             'required': 'Old password is required',
-            'blank': "Please enter your account's old password"
+            'blank': "Please enter your old password"
         }
     )
     new_password1 = serializers.CharField(
