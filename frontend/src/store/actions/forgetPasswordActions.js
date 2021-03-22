@@ -17,11 +17,11 @@ export const requestResetPassword = (email) => (dispatch) => {
 };
 
 
-export const resetPassword = (token, uid, new_password1, new_password2) => dispatch => {
+export const resetPassword = (data) => dispatch => {
     dispatch({type: Types.FORGET_PASSWORD_RESET_LOADING, payload: true})
     dispatch({type: Types.FORGET_PASSWORD_RESET_ERROR, payload: {}})
 
-    axios.post("/auth/password/reset/confirm/", {new_password1, new_password2, uid, token})
+    axios.post("/auth/password/reset/confirm/", data)
     .then(res => {
         dispatch({type: Types.FORGET_PASSWORD_RESET_LOADING, payload: false})
         dispatch({type: Types.FORGET_PASSWORD_RESET_SUCCESS})

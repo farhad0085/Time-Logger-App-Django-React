@@ -45,8 +45,35 @@ function forgetPasswordReducer(state = initialState, action) {
         }
       }
     }
-
-
+    case Types.FORGET_PASSWORD_RESET_LOADING: {
+      return {
+        ...state,
+        reset: {
+          ...state.reset,
+          loading: action.payload
+        }
+      }
+    }
+    case Types.FORGET_PASSWORD_RESET_SUCCESS: {
+      return {
+        ...state,
+        reset: {
+          ...state.reset,
+          error: "",
+          status: true
+        }
+      }
+    }
+    case Types.FORGET_PASSWORD_RESET_ERROR: {
+      return {
+        ...state,
+        reset: {
+          ...state.reset,
+          error: action.payload,
+          status: false
+        }
+      }
+    }
     default: return state;
   }
 }

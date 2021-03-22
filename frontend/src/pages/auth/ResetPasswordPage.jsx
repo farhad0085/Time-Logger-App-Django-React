@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { resetPassword } from '../../store/actions/forgetPasswordActions'
 import AuthLayout from '../../components/layouts/AuthLayout'
 import { Button, Card, CardBody, FormGroup, Form, Input, InputGroupAddon, InputGroupText, InputGroup, Row, Col } from "reactstrap";
 import { Link } from 'react-router-dom'
+import { FORGET_PASSWORD_RESET_ERROR } from '../../store/actions/actionTypes';
 
 
 const ResetPasswordPage = (props) => {
@@ -21,14 +22,18 @@ const ResetPasswordPage = (props) => {
     dispatch(resetPassword({uid, token, new_password1, new_password2}));
   };
 
+  useEffect(() => {
+    dispatch({type: FORGET_PASSWORD_RESET_ERROR, payload: {}})
+    // eslint-disable-next-line
+  }, [])
+
   return (
     <AuthLayout>
       <Col lg="5" md="7">
         <Card className="bg-secondary shadow border-0">
           <CardBody className="px-lg-5 py-lg-5">
             <div className="text-center text-muted mb-4">
-              <h2>Forget password?</h2>
-              <p>Don't worry, a password reset link will be sent to your registered email address.</p>
+              <h2>Reset Password</h2>
             </div>
             <Form onSubmit={submitHandler}>
               <FormGroup className="mb-3">
@@ -46,6 +51,11 @@ const ResetPasswordPage = (props) => {
                     onChange={e => setPassword1(e.target.value)}
                   />
                 </InputGroup>
+                {forgetPassword.reset.error.new_password1 && (
+                  <p className="my-2" style={{ color: 'rgb(255, 80, 19)', fontSize: '14px', fontWeight: 'bold'}}>
+                    {forgetPassword.reset.error.new_password1}
+                  </p>
+                )}
               </FormGroup>
 
               <FormGroup className="mb-3">
@@ -63,23 +73,30 @@ const ResetPasswordPage = (props) => {
                     onChange={e => setPassword2(e.target.value)}
                   />
                 </InputGroup>
+                {forgetPassword.reset.error.new_password2 && (
+                  <p className="my-2" style={{ color: 'rgb(255, 80, 19)', fontSize: '14px', fontWeight: 'bold'}}>
+                    {forgetPassword.reset.error.new_password2}
+                  </p>
+                )}
               </FormGroup>
+              
+              {(forgetPassword.reset.error.uid || forgetPassword.reset.error.token) && (
+                <p className="text-center my-2" style={{ color: 'rgb(255, 80, 19)', fontSize: '14px', fontWeight: 'bold'}}>
+                  Token invalid or expired!
+                </p>
+              )}
+
+              {forgetPassword.reset.status && (
+                <p className="text-center my-2" style={{ color: 'rgb(13, 156, 20)', fontSize: '14px', fontWeight: 'bold'}}>
+                  Your password has been reset with the new password!
+                </p>
+              )}
 
               <div className="text-center">
-                <Button disabled={forgetPassword.request.loading} className="my-2" color="primary" type="submit">
-                  {forgetPassword.request.loading ? "Requesting..." : "Reset Password"}
+                <Button className="my-2" color="primary" type="submit">
+                  {forgetPassword.reset.loading ? "Please wait..." : "Reset Password"}
                 </Button>
               </div>
-              {forgetPassword.request.error && (
-                <p className="text-center" style={{ color: 'rgb(255, 80, 19)', fontWeight: 'bold'}}>
-                  No Account found for that email address.
-                </p>
-              )}
-              {forgetPassword.request.status && (
-                <p className="text-center" style={{ color: 'rgb(19, 204, 96)', fontWeight: 'bold'}}>
-                  Password reset e-mail has been sent.
-                </p>
-              )}
             </Form>
           </CardBody>
         </Card>

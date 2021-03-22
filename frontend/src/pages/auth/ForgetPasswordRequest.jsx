@@ -54,7 +54,7 @@ const ForgetPasswordRequest = () => {
                 </p>
               )}
               {forgetPassword.request.status && (
-                <p className="text-center" style={{ color: 'rgb(19, 204, 96)', fontWeight: 'bold'}}>
+                <p className="text-center" style={{ color: 'rgb(13, 156, 20)', fontWeight: 'bold'}}>
                   Password reset e-mail has been sent.
                 </p>
               )}
