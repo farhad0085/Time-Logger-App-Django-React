@@ -104,6 +104,7 @@ REST_FRAMEWORK = {
 
 REST_AUTH_SERIALIZERS = {
     'PASSWORD_RESET_SERIALIZER': 'user.serializers.PasswordResetSerializer',
+    'PASSWORD_RESET_CONFIRM_SERIALIZER': 'user.serializers.PasswordResetConfirmSerializer'
 }
 
 SITE_ID = 1

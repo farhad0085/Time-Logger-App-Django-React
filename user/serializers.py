@@ -4,6 +4,7 @@ from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
 from rest_auth.serializers import PasswordChangeSerializer
 from django.contrib.auth import get_user_model
+from rest_auth.serializers import PasswordResetConfirmSerializer as BasePasswordResetConfirmSerializer
 
 UserModel = get_user_model()
 
@@ -22,6 +23,7 @@ class UserAccountSerializer(serializers.ModelSerializer):
 
     def get_company_name(self, object):
         return object.company.name
+
 
 class RegistrationSerializer(RegisterSerializer):
 
@@ -89,6 +91,23 @@ class PasswordResetSerializer(serializers.Serializer):
 
         opts.update(self.get_email_options())
         self.reset_form.save(**opts)
+
+
+class PasswordResetConfirmSerializer(BasePasswordResetConfirmSerializer):
+    new_password1 = serializers.CharField(
+        max_length=128,
+        error_messages={
+            'required': 'New Password is required',
+            'blank': "Please enter a new password"
+        }
+    )
+    new_password2 = serializers.CharField(
+        max_length=128,
+        error_messages={
+            'required': 'Confirm Password is required',
+            'blank': "Please enter the confirm password"
+        }
+    )
 
 
 class ChangePasswordSerializer(PasswordChangeSerializer):
