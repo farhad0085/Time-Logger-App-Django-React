@@ -17,10 +17,12 @@ class UserAccountAdmin(UserAdmin):
 
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
+        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
         ('Personal info', {'fields': 
             ('first_name', 'last_name', 'email', 'user_type', 'address', 'phone', 'city',
             'country', 'postal_code', 'company', 'is_company_owner')
         }),
+        ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
 
 
