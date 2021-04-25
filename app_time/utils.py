@@ -2,6 +2,7 @@ import os
 import xlsxwriter
 import datetime
 from django.conf import settings
+from os.path import isfile, join
 
 
 def format_time(minutes):
@@ -19,7 +20,7 @@ def format_time(minutes):
 def create_excel_file(response):
 
     # delete old files
-    empty_folder(os.path.join(settings.MEDIA_ROOT, 'excel'), ['.gitignore'])
+    empty_folder(join(settings.MEDIA_ROOT, 'excel'), ['.gitignore'])
 
     dt_str = str(int(datetime.datetime.now().timestamp()))
     date_str = str(datetime.date.today())
@@ -27,7 +28,7 @@ def create_excel_file(response):
     filename = f"Data_{date_str}_{dt_str}.xlsx"
 
     # Create an new Excel file and add a worksheet.
-    workbook = xlsxwriter.Workbook(os.path.join(settings.MEDIA_ROOT, 'excel', filename))
+    workbook = xlsxwriter.Workbook(join(settings.MEDIA_ROOT, 'excel', filename))
 
     for item in response:
 
@@ -64,4 +65,14 @@ def create_excel_file(response):
 
 
 def empty_folder(folder_path, excludes=[]):
-    print(folder_path, excludes)
+    # list all but last 5 files
+    only_files = [f for f in os.listdir(folder_path) if isfile(join(folder_path, f))][:-5]
+    only_files = sorted(only_files)
+
+    # delete all file but the files in excludes
+    for file in only_files:
+        if file in excludes:
+            continue
+
+        filepath = join(folder_path, file)
+        os.remove(filepath)
