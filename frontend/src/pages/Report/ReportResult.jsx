@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, CardHeader, Container, Row, Col, CardBody } from "reactstrap";
 import { useSelector } from 'react-redux'
 import BuildReport from './BuildReport';
+import Export from './Export';
 
 
 const ReportResult = () => {
@@ -15,7 +16,9 @@ const ReportResult = () => {
           <Card className="shadow">
             <CardHeader className="border-0">
               <div className="col">
-                <h3 className="mb-0 text-center">Report Result</h3>
+                <h3 className={`mb-0 ${!timeLog.logReport.data.export && 'text-center'}`}>Report Result
+                {timeLog.logReport.data.export && <Export data={timeLog.logReport.data.export || {}} />}
+                </h3>
               </div>
             </CardHeader>
             <hr className="my-0" />
@@ -25,7 +28,7 @@ const ReportResult = () => {
               ) : (
                 <>
                   {timeLog.logReport.error && <p className="text-center">{timeLog.logReport.error}</p>}
-                  {Object.keys(timeLog.logReport.data).length > 0 && <BuildReport data={timeLog.logReport.data} />}
+                  {Object.keys(timeLog.logReport.data).length > 0 && <BuildReport data={timeLog.logReport.data.data} />}
                 </>
               )}
             </CardBody>
