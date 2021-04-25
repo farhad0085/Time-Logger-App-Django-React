@@ -1,4 +1,4 @@
-from app_time.utils import format_time
+from app_time.utils import create_excel_file, format_time
 from rest_framework.response import Response
 from app_time.serializers import TimeLogSerializer
 from app_time.models import TimeLog
@@ -240,8 +240,16 @@ class LogReportView(APIView):
                     company_data["data"].append(user_data)
                 
                 data.append(company_data)
-
-            return Response(data)
+            
+            excel_filename = create_excel_file(data)
+            result_data = {
+                'data': data,
+                'export': {
+                    'excel': f"/media/excel/{excel_filename}",
+                    'pdf': ''
+                }
+            }
+            return Response(result_data)
 
 
         # dummy data if a company is selected
@@ -291,4 +299,12 @@ class LogReportView(APIView):
                 })
             data["data"].append(user_data)
         
-        return Response([data])
+        excel_filename = create_excel_file([data])
+        result_data = {
+            'data': [data],
+            'export': {
+                'excel': f"/media/excel/{excel_filename}",
+                'pdf': ''
+            }
+        }
+        return Response(result_data)
